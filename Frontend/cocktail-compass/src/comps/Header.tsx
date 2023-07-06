@@ -1,11 +1,12 @@
-import React from 'react'
 import Navbar from './Navbar'
 
-function Header() {
+const Header = () => {
   return (
     <>
+    <section className='header'>
     <Navbar />
-    <img src="./src/assets/Logo background.jpeg" height={250}  alt="Cocktail Compass Logo" />
+    <img className='logo' src="./src/assets/Logo-white.png" height={250}  alt="Cocktail Compass Logo" />
+    </section>
     </>
   )
 }

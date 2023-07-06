@@ -20,7 +20,6 @@ public class CocktailController {
     @GetMapping("/{searchQuery}")
     public ResponseEntity<List<Cocktail>> searchCocktails(@PathVariable String searchQuery){
        List<Cocktail> cocktails = service.searchCocktails(searchQuery);
-        System.out.println(cocktails);
        if (cocktails.isEmpty()) {
            return ResponseEntity.noContent().build();
        }
