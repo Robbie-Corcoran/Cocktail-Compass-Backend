@@ -21,7 +21,6 @@ public class CocktailRepository implements ICocktailRepository {
     public List<Cocktail> searchCocktails(String searchQuery) {
         String apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchQuery;
         CocktailResponse response = restTemplate.getForObject(apiUrl, CocktailResponse.class);
-        List<CocktailDTO> cocktailDTOList = new ArrayList<>();
         return response.getCocktails();
     }
 }
