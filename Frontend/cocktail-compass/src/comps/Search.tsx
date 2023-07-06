@@ -1,10 +1,12 @@
 import CocktailCard from './CocktailCard';
+import RandomCocktail from './RandomCocktail';
 
 type UserInputProps = {
   userInput: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setUserInput: any;
   searchResults: string[];
+  randomResult: string[];
 };
 
 const Search = (props: UserInputProps) => {
@@ -18,8 +20,9 @@ const Search = (props: UserInputProps) => {
 
   return (
     <>
-      <form role="search">
+      <form name="searchCocktail" role="search">
         <input
+          id="search"
           type="search"
           placeholder="What are we making tonight?"
           value={props.userInput}
@@ -28,6 +31,7 @@ const Search = (props: UserInputProps) => {
           }}
         />
       </form>
+      <RandomCocktail randomResult={props.randomResult} />
       <section>{results}</section>
     </>
   );

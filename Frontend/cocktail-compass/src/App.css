@@ -5,11 +5,21 @@
   text-align: center;
 }
 
+/* NAVBAR */
+
+.navbar {
+
+}
+
 /* HEADER */
+
+.header {
+  
+}
 
 .logo {
   animation:spin 50s linear infinite;
-  margin: 20px auto;
+  margin: 25px auto;
 }
 @keyframes spin { 
   100% { 
@@ -25,6 +35,17 @@
   display: flex;
   place-items: center;
   min-width: 320px;
+}
+
+/* SEARCH BAR */
+
+.search-bar {
+
+}
+
+.random-button {
+  background-color: #3B9486;
+  margin: 15px auto;
 }
 
 

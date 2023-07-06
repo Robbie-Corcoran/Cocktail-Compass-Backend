@@ -13,14 +13,14 @@ const Gallery = () => {
   useEffect(() => {
     const searchCocktail = async () => {
       try {
-        const randomReponse = await axios.get(randomURL);
-        setRandomResult(randomReponse.data);
-        console.log(randomResult);
         if (userInput) {
           const response = await axios.get(baseURL);
           setSearchResults(response.data);
-          console.log(searchResults);
+          // console.log(searchResults);
         }
+        const randomReponse = await axios.get(randomURL);
+        setRandomResult(randomReponse.data);
+        // console.log(randomResult);
       } catch (error) {
         console.log(error);
       }
@@ -32,8 +32,8 @@ const Gallery = () => {
 
   return (
     <section>
-      <Search userInput={userInput} setUserInput={setUserInput} searchResults={searchResults} />
-      <RandomCocktail randomResult={randomResult} />
+      <Search userInput={userInput} setUserInput={setUserInput} searchResults={searchResults} randomResult={randomResult}/>
+      {/* <RandomCocktail /> */}
     </section>
   );
 };
