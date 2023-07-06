@@ -5,3 +5,51 @@
   text-align: center;
 }
 
+/* HEADER */
+
+.logo {
+  animation:spin 50s linear infinite;
+  margin: 20px auto;
+}
+@keyframes spin { 
+  100% { 
+      -webkit-transform: rotate(-360deg); 
+      transform:rotate(-360deg); 
+  } 
+}
+
+/* GALLERY */
+
+.search-results {
+  margin-top: 20px;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+}
+
+
+/* COCKTAIL CARD */
+
+.cocktail-card {
+  border: 2px solid white;
+  border-radius: 13px;
+  margin: 20px 5px;
+}
+
+.cocktail-card__image {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+@supports (transition: all .2s ease-in-out) and (transform: scale(1.02)) {
+  .cocktail-card {
+      transition: all .2s ease-in-out;
+  }
+
+  .cocktail-card:hover {
+      transform: scale(1.02);
+  } 
+}
+
