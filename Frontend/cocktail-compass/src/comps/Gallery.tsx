@@ -23,15 +23,15 @@ const Gallery = () => {
       }
     };
     getCocktail();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baseURL, userInput]);
-  // Check the dependencies above.
-
 
   return (
     <Search 
         userInput={userInput} 
         setUserInput={setUserInput} 
-        />
+    />
+    
   )
 }
 
