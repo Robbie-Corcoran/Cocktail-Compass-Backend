@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Search from './Search';
 import axios from 'axios';
-import RandomCocktail from './RandomCocktail';
 
 const Gallery = () => {
   const [searchResults, setSearchResults] = useState<string[]>([]);
@@ -33,7 +32,6 @@ const Gallery = () => {
   return (
     <section>
       <Search userInput={userInput} setUserInput={setUserInput} searchResults={searchResults} randomResult={randomResult}/>
-      {/* <RandomCocktail /> */}
     </section>
   );
 };

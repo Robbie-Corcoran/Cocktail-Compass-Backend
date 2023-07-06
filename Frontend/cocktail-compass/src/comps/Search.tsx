@@ -12,7 +12,7 @@ type UserInputProps = {
 const Search = (props: UserInputProps) => {
   const results = props.searchResults.map((obj, i) => {
     return (
-      <section className="search-results">
+      <section className="results">
         <CocktailCard cocktail={obj} key={i} />
       </section>
     );
@@ -23,7 +23,8 @@ const Search = (props: UserInputProps) => {
       <form name="searchCocktail" role="search">
         <input
           id="search"
-          type="search"
+          name="search"
+          type="text"
           placeholder="What are we making tonight?"
           value={props.userInput}
           onChange={(event) => {

@@ -7,14 +7,15 @@
 
 /* NAVBAR */
 
-.navbar {
-
+.navbar__item {
+  font-size: 1.2em;
+  padding: 10px 15px;
 }
 
 /* HEADER */
 
 .header {
-  
+  font-size: 1.5em;
 }
 
 .logo {
@@ -33,21 +34,18 @@
 .search-results {
   margin-top: 20px;
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
   place-items: center;
   min-width: 320px;
 }
 
 /* SEARCH BAR */
 
-.search-bar {
-
-}
-
 .random-button {
   background-color: #3B9486;
   margin: 15px auto;
 }
-
 
 /* COCKTAIL CARD */
 
@@ -76,3 +74,18 @@
   } 
 }
 
+/* Tablet */
+
+@media only screen and (min-width: 480px) {
+
+  .cocktail-card {
+    width: 38vw;
+  }
+
+}
+
+/* Desktop */
+
+@media only screen and (min-width: 1000px) {
+
+}

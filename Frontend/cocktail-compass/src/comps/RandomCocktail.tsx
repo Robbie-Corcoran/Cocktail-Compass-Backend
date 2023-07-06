@@ -20,7 +20,7 @@ const RandomCocktail = (props: RandomProps) => {
 
   return (
     <>
-      <button className='random-button' onClick={handleRandomCocktail}>Random Cocktail</button>
+      <button className='random-button' onClick={handleRandomCocktail}>RANDOM COCKTAIL</button>
       {result}
     </>
   );
