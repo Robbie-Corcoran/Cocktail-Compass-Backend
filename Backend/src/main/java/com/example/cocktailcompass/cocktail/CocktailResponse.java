@@ -11,8 +11,6 @@ public class CocktailResponse {
     @JsonProperty("drinks")
     private List<Cocktail> cocktails;
 
-    private List<IngredientDTO> ingredients;
-
     public List<Cocktail> getCocktails() {
         return cocktails;
     }

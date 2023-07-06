@@ -1,6 +1,5 @@
 import CocktailCard from "./CocktailCard";
 
-
 type UserInputProps = {
     userInput: string;
     setUserInput: any;
