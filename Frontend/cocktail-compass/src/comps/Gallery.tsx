@@ -30,6 +30,7 @@ const Gallery = () => {
     <Search 
         userInput={userInput} 
         setUserInput={setUserInput} 
+        searchResults={searchResults}
     />
     
   )
