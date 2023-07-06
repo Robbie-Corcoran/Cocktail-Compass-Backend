@@ -1,28 +1,21 @@
-import './App.css'
-import {useEffect, useState} from "react";
-import axios from "axios";
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Header from './comps/Header';
+import About from './comps/About';
+import Gallery from './comps/Gallery';
 
 function App() {
+  
 
-  const baseURL = "http://localhost:8080/hello";
-  const [greeting, setGreeting] = useState('');
-
-  useEffect(() => {
-    const getGreeting = async () => {
-      try {
-        const response = await axios.get(baseURL);
-        setGreeting(response.data);
-      } catch (error){
-        console.log(error);
-      }
-    }
-    getGreeting();
-  }, [])
   return (
     <>
-      <h1>{greeting}</h1>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Gallery />}></Route>
+        <Route path="/about" element={<About />}></Route>
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
