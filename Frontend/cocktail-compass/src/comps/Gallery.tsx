@@ -1,39 +1,41 @@
 import { useEffect, useState } from 'react';
-import Search from './Search'
+import Search from './Search';
 import axios from 'axios';
-
-
+import RandomCocktail from './RandomCocktail';
 
 const Gallery = () => {
   const [searchResults, setSearchResults] = useState<string[]>([]);
+  const [randomResult, setRandomResult] = useState<string[]>([]);
   const [userInput, setUserInput] = useState('');
   const baseURL = `http://localhost:8080/api/cocktails/${userInput}`;
-
+  const randomURL = 'http://localhost:8080/api/cocktails/random';
 
   useEffect(() => {
-    const getCocktail = async () => {
+    const searchCocktail = async () => {
       try {
+        const randomReponse = await axios.get(randomURL);
+        setRandomResult(randomReponse.data);
+        console.log(randomResult);
         if (userInput) {
-        const response = await axios.get(`${baseURL}`);
-        setSearchResults(response.data);
-        console.log(searchResults);
+          const response = await axios.get(baseURL);
+          setSearchResults(response.data);
+          console.log(searchResults);
         }
       } catch (error) {
         console.log(error);
       }
     };
-    getCocktail();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [baseURL, userInput]);
+    searchCocktail();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [baseURL, randomURL]);
 
   return (
-    <Search 
-        userInput={userInput} 
-        setUserInput={setUserInput} 
-        searchResults={searchResults}
-    />
-    
-  )
-}
+    <section>
+      <Search userInput={userInput} setUserInput={setUserInput} searchResults={searchResults} />
+      <RandomCocktail randomResult={randomResult} />
+    </section>
+  );
+};
 
-export default Gallery
+export default Gallery;

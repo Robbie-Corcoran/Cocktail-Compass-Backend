@@ -31,9 +31,11 @@
 /* COCKTAIL CARD */
 
 .cocktail-card {
-  border: 2px solid white;
+  border: 2px solid #E74F59;
+  background-color:#F76F0F;
   border-radius: 13px;
   margin: 20px 5px;
+  box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
 }
 
 .cocktail-card__image {
