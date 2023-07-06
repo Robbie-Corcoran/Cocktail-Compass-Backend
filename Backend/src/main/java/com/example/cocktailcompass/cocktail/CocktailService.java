@@ -19,4 +19,8 @@ public class CocktailService {
         return repo.searchCocktails(searchQuery);
     }
 
+    public List<Cocktail> randomCocktail(){
+        return repo.randomCocktail();
+    }
+
 }
