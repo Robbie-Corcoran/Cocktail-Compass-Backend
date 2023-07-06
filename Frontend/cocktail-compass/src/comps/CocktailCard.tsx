@@ -4,6 +4,10 @@ const CocktailCard = ({cocktail}) => {
   const cocktailThumbnail = cocktail.strDrinkThumb;
   const cocktailGlass = cocktail.strGlass;
   const cocktailInstructions = cocktail.strInstructions;
+
+  const ingredientsList = () => {
+
+  }
   
   return <>
     <article>
