@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
 
   return (
-    <nav> 
-        <Link to="/"> Home</Link> | 
-        <Link to="/about"> About</Link> |
-        <Link to="https://github.com/Robbie-Corcoran/Cocktail-Compass"> GitHub</Link>
+    <nav className='navbar'> 
+        <Link className='navbar__item' to="/">Home </Link>| 
+        <Link className='navbar__item' to="https://github.com/Robbie-Corcoran/Cocktail-Compass" target="_blank"> GitHub </Link>|
+        <Link className='navbar__item' to="/about"> About</Link>
     </nav>
   )
 }

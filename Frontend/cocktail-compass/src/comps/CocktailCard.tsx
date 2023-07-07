@@ -27,7 +27,7 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
     <>
       <article className="cocktail-card">
         <img className="cocktail-card__image" src={cocktailThumbnail} height={100} alt={cocktailName} />
-        <h2>{cocktailName}</h2>
+        <h2>{cocktailName.toUpperCase()}</h2>
         <h4>{cocktailGlass}</h4>
         <p>
           {cocktailIngredients.map((ingredient, index) => (

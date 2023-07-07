@@ -5,11 +5,22 @@
   text-align: center;
 }
 
+/* NAVBAR */
+
+.navbar__item {
+  font-size: 1.2em;
+  padding: 10px 15px;
+}
+
 /* HEADER */
+
+.header {
+  font-size: 1.5em;
+}
 
 .logo {
   animation:spin 50s linear infinite;
-  margin: 20px auto;
+  margin: 25px auto;
 }
 @keyframes spin { 
   100% { 
@@ -23,17 +34,27 @@
 .search-results {
   margin-top: 20px;
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
   place-items: center;
   min-width: 320px;
 }
 
+/* SEARCH BAR */
+
+.random-button {
+  background-color: #3B9486;
+  margin: 15px auto;
+}
 
 /* COCKTAIL CARD */
 
 .cocktail-card {
-  border: 2px solid white;
+  border: 2px solid #E74F59;
+  background-color:#F76F0F;
   border-radius: 13px;
   margin: 20px 5px;
+  box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
 }
 
 .cocktail-card__image {
@@ -53,3 +74,18 @@
   } 
 }
 
+/* Tablet */
+
+@media only screen and (min-width: 480px) {
+
+  .cocktail-card {
+    width: 38vw;
+  }
+
+}
+
+/* Desktop */
+
+@media only screen and (min-width: 1000px) {
+
+}
