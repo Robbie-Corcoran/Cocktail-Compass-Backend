@@ -10,6 +10,7 @@ import java.util.List;
 public class CocktailRepository implements ICocktailRepository {
 
     private final RestTemplate restTemplate;
+    private final String BASE_URL = "www.thecocktaildb.com/api/json/v1/1/" ;
 
     @Autowired
     public CocktailRepository(RestTemplate restTemplate) {
@@ -17,14 +18,23 @@ public class CocktailRepository implements ICocktailRepository {
     }
 
     public List<Cocktail> searchCocktails(String searchQuery) {
-        String apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchQuery;
+        String apiUrl = BASE_URL + "search.php?s=" + searchQuery;
         CocktailResponse response = restTemplate.getForObject(apiUrl, CocktailResponse.class);
+        assert response != null;
+        return response.getCocktails();
+    }
+
+    public List<Cocktail> searchByIngredient(String searchQuery) {
+        String apiIngredientUrl = BASE_URL + "filter.php?i=" + searchQuery;
+        CocktailResponse response = restTemplate.getForObject(apiIngredientUrl, CocktailResponse.class);
+        assert response != null;
         return response.getCocktails();
     }
 
     public List<Cocktail> randomCocktail() {
-        String apiRandomUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+        String apiRandomUrl = BASE_URL + "random.php";
         CocktailResponse response = restTemplate.getForObject(apiRandomUrl, CocktailResponse.class);
+        assert response != null;
         return response.getCocktails();
     }
 }
