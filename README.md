@@ -21,7 +21,7 @@ The Cocktail Search App is built using the following technologies:
   - Spring Boot
 
 - External API:
-  - [TheCocktailDB API](https://www.thecocktaildb.com/api.php)
+  - [TheCocktailDB API](https://www.thecocktaildb.com)
 
 ## Installation
 
@@ -37,7 +37,7 @@ Follow these steps to set up and run the Cocktail Search App locally:
    ```shell
    cd cocktail-search-app
 
-3. Install dependencies::
+3. Install dependencies:
 
    ```shell
    npm install

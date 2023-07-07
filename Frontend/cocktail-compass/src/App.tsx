@@ -5,8 +5,6 @@ import About from './comps/About';
 import Gallery from './comps/Gallery';
 
 function App() {
-  
-
   return (
     <>
       <Header />

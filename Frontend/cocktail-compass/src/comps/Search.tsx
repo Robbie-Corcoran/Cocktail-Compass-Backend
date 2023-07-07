@@ -7,33 +7,38 @@ type UserInputProps = {
   setUserInput: any;
   searchResults: string[];
   randomResult: string[];
+
 };
 
 const Search = (props: UserInputProps) => {
   const results = props.searchResults.map((obj, i) => {
     return (
-      <section className="results">
+      <section className="result">
         <CocktailCard cocktail={obj} key={i} />
       </section>
     );
   });
 
+  const onClearHandler = () => props.setUserInput("");
+
   return (
     <>
       <form name="searchCocktail" role="search">
         <input
-          id="search"
+          id=''
+          className='search__input'
           name="search"
           type="text"
-          placeholder="What are we making tonight?"
+          placeholder="WHAT WILL IT BE?"
           value={props.userInput}
           onChange={(event) => {
             props.setUserInput(event.currentTarget.value);
           }}
         />
       </form>
+      <button className='button' type="button" onClick={onClearHandler}>CLEAR SEARCH</button>
       <RandomCocktail randomResult={props.randomResult} />
-      <section>{results}</section>
+      <section className='result'>{results}</section>
     </>
   );
 };

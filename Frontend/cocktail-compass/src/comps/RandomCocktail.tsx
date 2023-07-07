@@ -6,22 +6,24 @@ type RandomProps = {
 };
 
 const RandomCocktail = (props: RandomProps) => {
-    const [result, setResult] = useState<JSX.Element[]>([]);
-  
-    const handleRandomCocktail = () => {
-      const randomCocktails = props.randomResult.map((obj, i) => (
-        <section className="random-results" key={i}>
-          <CocktailCard cocktail={obj} />
-        </section>
-      ));
-  
-      setResult(randomCocktails);
-    };
+  const [result, setResult] = useState<JSX.Element[]>([]);
+
+  const handleRandomCocktail = () => {
+    const randomCocktails = props.randomResult.map((obj, i) => (
+      <section>
+        <CocktailCard cocktail={obj} key={i} />
+      </section>
+    ));
+
+    setResult(randomCocktails);
+  };
 
   return (
     <>
-      <button className='random-button' onClick={handleRandomCocktail}>RANDOM COCKTAIL</button>
-      {result}
+      <button className="button" onClick={handleRandomCocktail}>
+        RANDOM COCKTAIL
+      </button>
+      <section className="result">{result}</section>
     </>
   );
 };

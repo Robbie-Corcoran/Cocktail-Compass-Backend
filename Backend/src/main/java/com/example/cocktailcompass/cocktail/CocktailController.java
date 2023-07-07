@@ -26,6 +26,15 @@ public class CocktailController {
        return ResponseEntity.ok(cocktails);
     }
 
+    @GetMapping("/ingredients/{searchQuery}")
+    public ResponseEntity<List<Cocktail>> searchByIngredient(@PathVariable String searchQuery){
+        List<Cocktail> cocktails = service.searchCocktails(searchQuery);
+        if (cocktails.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(cocktails);
+    }
+
     @GetMapping("/random")
     public ResponseEntity<List<Cocktail>> randomCocktial(){
         List<Cocktail> cocktail = service.randomCocktail();

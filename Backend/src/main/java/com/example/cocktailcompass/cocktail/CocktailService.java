@@ -19,6 +19,10 @@ public class CocktailService {
             return repo.searchCocktails(searchQuery);
     }
 
+    public List<Cocktail> searchByIngredient(String searchQuery) {
+        return repo.searchByIngredient(searchQuery);
+    }
+
     public List<Cocktail> randomCocktail(){
         return repo.randomCocktail();
     }
