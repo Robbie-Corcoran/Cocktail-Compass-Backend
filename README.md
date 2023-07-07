@@ -21,7 +21,7 @@ The Cocktail Search App is built using the following technologies:
   - Spring Boot
 
 - External API:
-  - [TheCocktailDB API](https://www.thecocktaildb.com/api.php)
+  - [TheCocktailDB API](https://www.thecocktaildb.com)
 
 ## Installation
 
@@ -36,7 +36,9 @@ Follow these steps to set up and run the Cocktail Search App locally:
 
    ```shell
    cd cocktail-search-app
-3. Install dependencies::
+
+3. Install dependencies:
+
    ```shell
    npm install
 
@@ -44,16 +46,20 @@ Follow these steps to set up and run the Cocktail Search App locally:
 
    ```shell
    npm start
+
 5. Open your browser and access the app at http://localhost:3000.
 
+
+
 ##  Upcoming Features
-- Search ingredients.
+- Search by ingredients.
 - Save favourite cocktails for later.
 - Keep track of drinks you've tried and leave a review.
 - NEW cocktail page where similar and recommended cocktails can be dispalyed, as well as tips for making.
 
 ## Contributing
 Contributions are welcome! If you would like to contribute to the Cocktail Search App, please follow these steps:
+
 - Fork the repository.
 - Create a new branch for your feature or bug fix.
 - Make your changes and commit them with descriptive commit messages.
