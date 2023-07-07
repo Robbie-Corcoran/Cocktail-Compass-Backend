@@ -19,6 +19,8 @@ const Search = (props: UserInputProps) => {
     );
   });
 
+  const onClearHandler = () => props.setUserInput("");
+
   return (
     <>
       <form name="searchCocktail" role="search">
@@ -34,6 +36,7 @@ const Search = (props: UserInputProps) => {
           }}
         />
       </form>
+      <button className='button' type="button" onClick={onClearHandler}>CLEAR SEARCH</button>
       <RandomCocktail randomResult={props.randomResult} />
       <section className='result'>{results}</section>
     </>

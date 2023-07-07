@@ -58,9 +58,20 @@
   border: 2px solid #3b9486;
 }
 
-.random-button {
+.button {
+  min-width: 150px;
+  width: 250px;
   background-color: #3b9486;
-  margin: 15px auto;
+  margin: 15px 15px;
+  -webkit-transition: color 1s ease-in;
+  -moz-transition: color 1s ease-in;
+  -o-transition: color 1s ease-in;
+  transition: background-color 1s ease-in;
+}
+
+.button:hover {
+  background-color: #252559;
+  border: 2px solid #3b9486;
 }
 
 /* COCKTAIL CARD */
