@@ -10,7 +10,7 @@ import java.util.List;
 public class CocktailRepository implements ICocktailRepository {
 
     private final RestTemplate restTemplate;
-    private final String BASE_URL = "www.thecocktaildb.com/api/json/v1/1/" ;
+    private final String BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/" ;
 
     @Autowired
     public CocktailRepository(RestTemplate restTemplate) {
