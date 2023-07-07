@@ -7,12 +7,13 @@ type UserInputProps = {
   setUserInput: any;
   searchResults: string[];
   randomResult: string[];
+
 };
 
 const Search = (props: UserInputProps) => {
   const results = props.searchResults.map((obj, i) => {
     return (
-      <section className="results">
+      <section className="result">
         <CocktailCard cocktail={obj} key={i} />
       </section>
     );
@@ -22,10 +23,11 @@ const Search = (props: UserInputProps) => {
     <>
       <form name="searchCocktail" role="search">
         <input
-          id="search"
+          id=''
+          className='search__input'
           name="search"
           type="text"
-          placeholder="What are we making tonight?"
+          placeholder="WHAT WILL IT BE?"
           value={props.userInput}
           onChange={(event) => {
             props.setUserInput(event.currentTarget.value);
@@ -33,7 +35,7 @@ const Search = (props: UserInputProps) => {
         />
       </form>
       <RandomCocktail randomResult={props.randomResult} />
-      <section>{results}</section>
+      <section className='result'>{results}</section>
     </>
   );
 };

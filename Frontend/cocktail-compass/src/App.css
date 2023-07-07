@@ -19,73 +19,100 @@
 }
 
 .logo {
-  animation:spin 50s linear infinite;
+  animation: spin 50s linear infinite;
   margin: 25px auto;
 }
-@keyframes spin { 
-  100% { 
-      -webkit-transform: rotate(-360deg); 
-      transform:rotate(-360deg); 
-  } 
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
 }
 
 /* GALLERY */
 
-.search-results {
-  margin-top: 20px;
+.result {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  place-items: center;
+  margin-top: 20px;
   min-width: 320px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* SEARCH BAR */
 
+.search__input {
+  background-color: #252559;
+}
+
+.search__input:hover {
+  border-color: #646cff;
+}
+
+.search__input:focus,
+.search__input:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.search__input:focus {
+  border: 2px solid #3b9486;
+}
+
 .random-button {
-  background-color: #3B9486;
+  background-color: #3b9486;
   margin: 15px auto;
 }
 
 /* COCKTAIL CARD */
 
 .cocktail-card {
-  border: 2px solid #E74F59;
-  background-color:#F76F0F;
+  border: 2px solid #e74f59;
+  background-color: #f76f0f;
   border-radius: 13px;
   margin: 20px 5px;
-  box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+  box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.cocktail-card::-webkit-scrollbar {
+  display: none;
 }
 
 .cocktail-card__image {
   width: 100%;
   height: auto;
   overflow: hidden;
-  border-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
-@supports (transition: all .2s ease-in-out) and (transform: scale(1.02)) {
+@supports (transition: all 0.2s ease-in-out) and (transform: scale(1.02)) {
   .cocktail-card {
-      transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
   }
 
   .cocktail-card:hover {
-      transform: scale(1.02);
-  } 
+    transform: scale(1.02);
+  }
 }
 
 /* Tablet */
 
 @media only screen and (min-width: 480px) {
-
   .cocktail-card {
-    width: 38vw;
+    max-width: 38vw;
+    max-height: 66vh;
+    overflow: auto;
+    justify-content: space-between;
   }
-
 }
 
 /* Desktop */
 
 @media only screen and (min-width: 1000px) {
-
+  .cocktail-card {
+    max-width: 25vw;
+    max-height: 70vh;
+    margin-right: 10px;
+  }
 }

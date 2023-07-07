@@ -21,7 +21,7 @@ const Gallery = () => {
         setRandomResult(randomReponse.data);
         // console.log(randomResult);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     searchCocktail();
@@ -30,8 +30,8 @@ const Gallery = () => {
   }, [baseURL, randomURL]);
 
   return (
-    <section>
-      <Search userInput={userInput} setUserInput={setUserInput} searchResults={searchResults} randomResult={randomResult}/>
+    <section className="gallery">
+      <Search userInput={userInput} setUserInput={setUserInput} searchResults={searchResults} randomResult={randomResult} />
     </section>
   );
 };
