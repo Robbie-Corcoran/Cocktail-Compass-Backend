@@ -38,7 +38,7 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
             </span>
           ))}
         </p>
-        <p>{cocktailInstructions}</p>
+        <p className="cocktail-card__instructions">{cocktailInstructions}</p>
       </article>
     </>
   );
