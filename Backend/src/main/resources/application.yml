@@ -1,0 +1,27 @@
+## DB config goes here
+spring:
+  output:
+    ansi:
+      enabled: always
+  sql:
+    init:
+      platform: postgresql
+      mode: always
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sqlbootcamp
+    username: pguserx
+    password: pgpassword
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate.ddl-auto: update
+    defer-datasource-initialization: true
+    show-sql: true
+
+## Logging settings
+debug: true
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
