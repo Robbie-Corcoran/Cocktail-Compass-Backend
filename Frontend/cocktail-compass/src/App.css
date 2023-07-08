@@ -1,3 +1,5 @@
+@import 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap';
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -32,6 +34,7 @@
 /* GALLERY */
 
 .result {
+  font-family: 'Open Sans';
   display: flex;
   margin-top: 20px;
   min-width: 320px;
@@ -95,6 +98,7 @@
   height: auto;
   overflow: hidden;
   border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 @supports (transition: all 0.2s ease-in-out) and (transform: scale(1.02)) {
@@ -107,7 +111,24 @@
   }
 }
 
-/* Tablet */
+.cocktail-card__instructions {
+  padding: 10px 15px;
+}
+
+/* ABOUT */
+.about {
+  font-family: 'Open Sans';
+}
+
+.about__header {
+  font-weight: 400;
+}
+
+.about__body {
+  font-weight: 300;
+}
+
+/* Tablet View */
 
 @media only screen and (min-width: 480px) {
   .cocktail-card {
@@ -118,7 +139,7 @@
   }
 }
 
-/* Desktop */
+/* Desktop View */
 
 @media only screen and (min-width: 1000px) {
   .cocktail-card {
