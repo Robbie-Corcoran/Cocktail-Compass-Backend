@@ -1,29 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CocktailCard from './CocktailCard';
+import axios from 'axios';
 
-type FavouriteProps = {
-  favouriteResult: string[];
-};
+const Favourites = () => {
+  const [favouriteCocktails, setFavouriteCocktails] = useState<string[]>([]);
+  const favouriteURL = 'http://localhost:8080/api/cocktails/favourites';
 
-const Favourites = (props: FavouriteProps) => {
-  const [result, setResult] = useState<JSX.Element[]>([]);
+  useEffect(() => {
+    const fetchFavourites = async () => {
+      try {
+        const response = await axios.get(favouriteURL);
+        console.log(response.data)
+        setFavouriteCocktails(response.data);
+        console.log(favouriteCocktails)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchFavourites();
+  }, []);
 
-  const getFavouriteCocktails = () => {
-    const favouriteCocktails = props.favouriteResult.map((obj, i) => (
-      <section>
-        <CocktailCard cocktail={obj} key={i} />
+  const results = favouriteCocktails.map((cocktail, i) => {
+    // console.log(results);
+    return (
+      <section className="result" key={i}>
+        <CocktailCard cocktail={cocktail} />
       </section>
-    ));
-
-    setResult(favouriteCocktails);
-  };
+    );
+  });
 
   return (
     <>
-      <button className="button" onClick={getFavouriteCocktails}>
-        FAVOURITES
-      </button>
-      <section className="result">{result}</section>
+      <section className="result">
+        <h2>Favourites:</h2>
+        {results}
+      </section>
     </>
   );
 };

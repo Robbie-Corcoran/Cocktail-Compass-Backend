@@ -62,7 +62,7 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
       await axios.post(favouriteURL, data);
       console.log('Favourite status updated successfully')
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       setIsFavourite(!isFavourite);
     }
 
@@ -84,7 +84,7 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
     <>
       <article className="cocktail-card">
         <img className="cocktail-card__image" src={cocktailThumbnail} height={100} alt={cocktailName} />
-        <h2>{cocktailName.toUpperCase()}</h2>
+        <h2>{cocktailName}</h2>
         <h4>{cocktailGlass}</h4>
         <p>
           {cocktailIngredients.map((ingredient, index) => (

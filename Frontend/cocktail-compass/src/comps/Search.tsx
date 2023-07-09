@@ -1,5 +1,4 @@
 import CocktailCard from './CocktailCard';
-import Favourites from './Favourites';
 import RandomCocktail from './RandomCocktail';
 
 type UserInputProps = {
@@ -7,7 +6,6 @@ type UserInputProps = {
   setUserInput: (args: string) => void;
   searchResults: string[];
   randomResult: string[];
-  favouriteResult: string[];
 };
 
 const Search = (props: UserInputProps) => {
@@ -37,7 +35,6 @@ const Search = (props: UserInputProps) => {
         />
       </form>
       <button className='button' type="button" onClick={onClearHandler}>CLEAR SEARCH</button>
-      <Favourites favouriteResult={props.favouriteResult} />
       <RandomCocktail randomResult={props.randomResult} />
       <section className='result'>{results}</section>
     </>

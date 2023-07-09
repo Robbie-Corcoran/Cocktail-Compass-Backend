@@ -5,12 +5,10 @@ import axios from 'axios';
 const Gallery = () => {
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [randomResult, setRandomResult] = useState<string[]>([]);
-  const [favouriteResult, setFavouriteResult] = useState<string[]>([]);
 
   const [userInput, setUserInput] = useState('');
   const baseURL = `http://localhost:8080/api/cocktails/${userInput}`;
   const randomURL = 'http://localhost:8080/api/cocktails/random';
-  const favouriteURL = 'http://localhost:8080/api/cocktails/favourites';
 
   useEffect(() => {
     const searchCocktail = async () => {
@@ -22,11 +20,7 @@ const Gallery = () => {
         }
         const randomReponse = await axios.get(randomURL);
         setRandomResult(randomReponse.data);
-        console.log(randomResult);
-
-        const favouriteResponse = await axios.get(favouriteURL);
-        setFavouriteResult(favouriteResponse.data)
-        // console.log(favouriteResult);
+        // console.log(randomResult);
       } catch (error) {
         // console.log(error);
       }
@@ -38,7 +32,7 @@ const Gallery = () => {
 
   return (
     <section className="gallery">
-      <Search userInput={userInput} setUserInput={setUserInput} searchResults={searchResults} randomResult={randomResult} favouriteResult={favouriteResult}/>
+      <Search userInput={userInput} setUserInput={setUserInput} searchResults={searchResults} randomResult={randomResult}/>
     </section>
   );
 };
