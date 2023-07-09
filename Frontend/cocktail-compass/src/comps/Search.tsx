@@ -1,13 +1,13 @@
 import CocktailCard from './CocktailCard';
+import Favourites from './Favourites';
 import RandomCocktail from './RandomCocktail';
 
 type UserInputProps = {
   userInput: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setUserInput: any;
+  setUserInput: (args: string) => void;
   searchResults: string[];
   randomResult: string[];
-
+  favouriteResult: string[];
 };
 
 const Search = (props: UserInputProps) => {
@@ -38,6 +38,7 @@ const Search = (props: UserInputProps) => {
       </form>
       <button className='button' type="button" onClick={onClearHandler}>CLEAR SEARCH</button>
       <RandomCocktail randomResult={props.randomResult} />
+      <Favourites favouriteResult={props.favouriteResult} />
       <section className='result'>{results}</section>
     </>
   );
