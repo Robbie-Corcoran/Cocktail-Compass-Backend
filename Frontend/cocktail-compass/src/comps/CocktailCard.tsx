@@ -16,53 +16,54 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
   const [isFavourite, setIsFavourite] = useState(false);
 
   const toggleFavourite = async () => {
-    setIsFavourite(true);
+    setIsFavourite(!isFavourite);
     const favouriteURL = 'http://localhost:8080/api/cocktails/favourites';
+    const data =  
+    {
+      "drinkId": cocktail.idDrink,
+      "name": cocktail.strDrink,
+      "iba": cocktail.strIBA,
+      "glass": cocktail.strGlass,
+      "instructions": cocktail.strInstructions,
+      "thumbnail": cocktail.strDrinkThumb,
+      "strIngredient1": cocktail.strIngredient1,
+      "strIngredient2": cocktail.strIngredient2,
+      "strIngredient3": cocktail.strIngredient3,
+      "strIngredient4": cocktail.strIngredient4,
+      "strIngredient5": cocktail.strIngredient5,
+      "strIngredient6": cocktail.strIngredient6,
+      "strIngredient7": cocktail.strIngredient7,
+      "strIngredient8": cocktail.strIngredient8,
+      "strIngredient9": cocktail.strIngredient9,
+      "strIngredient10": cocktail.strIngredient10,
+      "strIngredient11": cocktail.strIngredient11,
+      "strIngredient12": cocktail.strIngredient12,
+      "strIngredient13": cocktail.strIngredient13,
+      "strIngredient14": cocktail.strIngredient14,
+      "strIngredient15": cocktail.strIngredient15,
+      "strMeasure1": cocktail.strMeasure1,
+      "strMeasure2": cocktail.strMeasure2,
+      "strMeasure3": cocktail.strMeasure3,
+      "strMeasure4": cocktail.strMeasure4,
+      "strMeasure5": cocktail.strMeasure5,
+      "strMeasure6": cocktail.strMeasure6,
+      "strMeasure7": cocktail.strMeasure7,
+      "strMeasure8": cocktail.strMeasure8,
+      "strMeasure9": cocktail.strMeasure9,
+      "strMeasure10": cocktail.strMeasure10,
+      "strMeasure11": cocktail.strMeasure11,
+      "strMeasure12": cocktail.strMeasure12,
+      "strMeasure13": cocktail.strMeasure13,
+      "strMeasure14": cocktail.strMeasure14,
+      "strMeasure15": cocktail.strMeasure15
+    }
+
     try {
-      const result = await axios.post(favouriteURL, {
-        data: {
-          id: 4,
-          drinkId: cocktail.strId,
-          name: cocktail.strDrink,
-          // "iba": null,
-          // "glass": "Martini Glass",
-          // "instructions": "Add ice to a shaker and pour in all ingredients.\\nUsing a bar spoon, stir 40 to 45 revolutions or until thoroughly chilled.\\nStrain into a martini glass or over ice into a rocks glass. Garnish with orange twist.",
-          // "thumbnail": "https://www.thecocktaildb.com/images/media/drink/x8lhp41513703167.jpg",
-          // "strIngredient1": "Gin",
-          // "strIngredient2": "Lillet",
-          // "strIngredient3": "Sweet Vermouth",
-          // "strIngredient4": "Orange Peel",
-          // "strIngredient5": null,
-          // "strIngredient6": null,
-          // "strIngredient7": null,
-          // "strIngredient8": null,
-          // "strIngredient9": null,
-          // "strIngredient10": null,
-          // "strIngredient11": null,
-          // "strIngredient12": null,
-          // "strIngredient13": null,
-          // "strIngredient14": null,
-          // "strIngredient15": null,
-          // "strMeasure1": "1 oz",
-          // "strMeasure2": "1 oz",
-          // "strMeasure3": "1 oz",
-          // "strMeasure4": "1",
-          // "strMeasure5": null,
-          // "strMeasure6": null,
-          // "strMeasure7": null,
-          // "strMeasure8": null,
-          // "strMeasure9": null,
-          // "strMeasure10": null,
-          // "strMeasure11": null,
-          // "strMeasure12": null,
-          // "strMeasure13": null,
-          // "strMeasure14": null,
-          // "strMeasure15": null
-        },
-      });
+      await axios.post(favouriteURL, data);
+      console.log('Favourite status updated successfully')
     } catch (error) {
       // console.log(error);
-      setIsFavourite(false);
+      setIsFavourite(!isFavourite);
     }
 
   };

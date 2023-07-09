@@ -37,8 +37,8 @@ const Search = (props: UserInputProps) => {
         />
       </form>
       <button className='button' type="button" onClick={onClearHandler}>CLEAR SEARCH</button>
-      <RandomCocktail randomResult={props.randomResult} />
       <Favourites favouriteResult={props.favouriteResult} />
+      <RandomCocktail randomResult={props.randomResult} />
       <section className='result'>{results}</section>
     </>
   );
