@@ -14,8 +14,4 @@ public class CocktailResponse {
     public List<Cocktail> getCocktails() {
         return cocktails;
     }
-
-    public void setCocktails(List<Cocktail> cocktails) {
-        this.cocktails = cocktails;
-    }
 }
