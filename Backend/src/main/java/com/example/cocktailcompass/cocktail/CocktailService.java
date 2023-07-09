@@ -1,18 +1,25 @@
 package com.example.cocktailcompass.cocktail;
 
+import com.example.cocktailcompass.cocktail.models.FavouriteCocktail;
+import com.example.cocktailcompass.cocktail.repositories.CocktailRepository;
+import com.example.cocktailcompass.cocktail.models.Cocktail;
+import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CocktailService {
 
+    private final FavouriteCocktailRepository favRepo;
     private final CocktailRepository repo;
 
     @Autowired
-    public CocktailService(CocktailRepository repo) {
+    public CocktailService(CocktailRepository repo, FavouriteCocktailRepository favRepo) {
         this.repo = repo;
+        this.favRepo = favRepo;
     }
 
     public List<Cocktail> searchCocktails(String searchQuery) {
@@ -25,6 +32,24 @@ public class CocktailService {
 
     public List<Cocktail> randomCocktail(){
         return repo.randomCocktail();
+    }
+
+
+
+    public FavouriteCocktail saveFavouriteCocktail(FavouriteCocktail favouriteCocktail) {
+        return favRepo.save(favouriteCocktail);
+    }
+
+    public List<FavouriteCocktail> getAllFavouriteCocktails() {
+        return (List<FavouriteCocktail>) favRepo.findAll();
+    }
+
+    public Optional<FavouriteCocktail> getFavouriteCocktailById(Long id) {
+        return favRepo.findById(id);
+    }
+
+    public void deleteFavouriteCocktail(Long id) {
+        favRepo.deleteById(id);
     }
 
 }
