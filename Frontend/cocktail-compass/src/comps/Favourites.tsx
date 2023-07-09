@@ -31,8 +31,8 @@ const Favourites = () => {
 
   return (
     <>
+      <h2 className='favourites__heading'>Favourites:</h2>
       <section className="result">
-        <h2>Favourites:</h2>
         {results}
       </section>
     </>
