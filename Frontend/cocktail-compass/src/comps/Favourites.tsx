@@ -31,7 +31,7 @@ const Favourites = () => {
 
   return (
     <>
-      <h2 className="favourites__heading">Favourites:</h2>
+      <h2 /*className="favourites__heading"*/ >FAVOURITES</h2>
       <section className="result">{results}</section>
     </>
   );

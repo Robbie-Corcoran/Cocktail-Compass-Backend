@@ -16,7 +16,7 @@ const Gallery = () => {
         if (userInput) {
           const response = await axios.get(baseURL);
           setSearchResults(response.data);
-          console.log(searchResults);
+          // console.log(searchResults);
         }
         const randomReponse = await axios.get(randomURL);
         setRandomResult(randomReponse.data);
@@ -28,7 +28,7 @@ const Gallery = () => {
     searchCocktail();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [baseURL, randomURL ]);
+  }, [baseURL]);
 
   return (
     <section className="gallery">

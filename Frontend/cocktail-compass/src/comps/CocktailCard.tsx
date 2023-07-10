@@ -20,12 +20,12 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
     const favouriteURL = 'http://localhost:8080/api/cocktails/favourites';
     const data =  
     {
-      "drinkId": cocktail.drinkId,
-      "name": cocktail.name,
-      "iba": cocktail.iba,
-      "glass": cocktail.glass,
-      "instructions": cocktail.instructions,
-      "thumbnail": cocktail.thumbnail,
+      "idDrink": cocktail.idDrink,
+      "strDrink": cocktail.strDrink,
+      "strIBA": cocktail.strIBA,
+      "strGlass": cocktail.strGlass,
+      "strInstructions": cocktail.strInstructions,
+      "strDrinkThumb": cocktail.strDrinkThumb,
       "strIngredient1": cocktail.strIngredient1,
       "strIngredient2": cocktail.strIngredient2,
       "strIngredient3": cocktail.strIngredient3,
@@ -57,17 +57,14 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
       "strMeasure14": cocktail.strMeasure14,
       "strMeasure15": cocktail.strMeasure15
     }
-    // const addFavourite = async () => {
     try {
       if (isFavourite) {
-        // Remove favorite
         await axios.delete(`${favouriteURL}/${cocktail.idDrink}`);
-        setIsFavourite(false);
+        setIsFavourite(!isFavourite);
         console.log('Cocktail removed from favorites');
       } else {
-        // Add favorite
         await axios.post(favouriteURL, data);
-        setIsFavourite(true);
+        setIsFavourite(isFavourite);
         console.log('Cocktail added to favorites');
       }
     } catch (error) {
