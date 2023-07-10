@@ -1,6 +1,6 @@
 # Cocktail Compass
 
-The Cocktail Compass is a web application that allows users to search for cocktail recipes, without the hassle of brand names. Users can enter the drink they want to make, and the app will display a list of the ingredients along with the instructions. Simple as syrup!
+The Cocktail Compass is a web application that allows users to search for cocktail recipes, without the hassle of brand names. Users can enter the drink they want to make, and the app will display a list of the ingredients along with the instructions. Simple as syrup! Not sure what to make? Try a random cocktail, and save it to favourites to try it again.
 
 
 ## Features
@@ -8,12 +8,13 @@ The Cocktail Compass is a web application that allows users to search for cockta
 - Search for cocktails
 - Display a list of cocktails
 - View detailed information about each cocktail, including its name, ingredients, instructions, and an example presentation
+- Show random cocktails
+- Save cocktails as Favourites
 
 
 ##  Upcoming Features
 
 - Search by ingredients.
-- Save favourite cocktails for later.
 - Keep track of drinks you've tried and leave a review.
 - NEW cocktail page where similar and recommended cocktails can be dispalyed, as well as tips for making.
 
