@@ -23,12 +23,18 @@ public class FavouriteCocktailController {
     @PostMapping
     public ResponseEntity<FavouriteCocktail> saveFavouriteCocktail(@RequestBody FavouriteCocktail favouriteCocktail) {
         FavouriteCocktail savedCocktail = service.saveFavouriteCocktail(favouriteCocktail);
+        if (savedCocktail == null) {
+            return ResponseEntity.badRequest().build();
+        }
         return new ResponseEntity<>(savedCocktail, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<FavouriteCocktail>> getAllFavouriteCocktails() {
         List<FavouriteCocktail> favouriteCocktails = service.getAllFavouriteCocktails();
+        if (favouriteCocktails.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return new ResponseEntity<>(favouriteCocktails, HttpStatus.OK);
     }
 

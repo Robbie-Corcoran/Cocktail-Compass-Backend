@@ -10,9 +10,9 @@ const Favourites = () => {
     const fetchFavourites = async () => {
       try {
         const response = await axios.get(favouriteURL);
-        console.log(response.data)
+        console.log(response.data);
         setFavouriteCocktails(response.data);
-        console.log(favouriteCocktails)
+        console.log(favouriteCocktails);
       } catch (error) {
         console.log(error);
       }
@@ -31,10 +31,8 @@ const Favourites = () => {
 
   return (
     <>
-      <h2 className='favourites__heading'>Favourites:</h2>
-      <section className="result">
-        {results}
-      </section>
+      <h2 className="favourites__heading">Favourites:</h2>
+      <section className="result">{results}</section>
     </>
   );
 };

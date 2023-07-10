@@ -57,7 +57,7 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
       "strMeasure14": cocktail.strMeasure14,
       "strMeasure15": cocktail.strMeasure15
     }
-
+    // const addFavourite = async () => {
     try {
       await axios.post(favouriteURL, data);
       console.log('Favourite status updated successfully')
@@ -65,6 +65,17 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
       console.log(error);
       setIsFavourite(!isFavourite);
     }
+  //   addFavourite();
+  // }
+
+    // const deleteFavourite = async () => {
+    //   try {
+    //     await axios.delete(favouriteURL);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // deleteFavourite();
 
   };
 
@@ -75,6 +86,7 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
       if (ingredient && measure) {
         cocktailIngredients.push({ ingredient, measure });
       }
+    
     }
   };
 
