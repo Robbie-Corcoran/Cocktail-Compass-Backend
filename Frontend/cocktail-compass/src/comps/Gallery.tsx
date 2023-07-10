@@ -5,6 +5,7 @@ import axios from 'axios';
 const Gallery = () => {
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [randomResult, setRandomResult] = useState<string[]>([]);
+
   const [userInput, setUserInput] = useState('');
   const baseURL = `http://localhost:8080/api/cocktails/${userInput}`;
   const randomURL = 'http://localhost:8080/api/cocktails/random';
@@ -19,7 +20,7 @@ const Gallery = () => {
         }
         const randomReponse = await axios.get(randomURL);
         setRandomResult(randomReponse.data);
-        // console.log(randomResult);
+        console.log(randomResult);
       } catch (error) {
         // console.log(error);
       }
@@ -27,11 +28,11 @@ const Gallery = () => {
     searchCocktail();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [baseURL, randomURL]);
+  }, [baseURL]);
 
   return (
     <section className="gallery">
-      <Search userInput={userInput} setUserInput={setUserInput} searchResults={searchResults} randomResult={randomResult} />
+      <Search userInput={userInput} setUserInput={setUserInput} searchResults={searchResults} randomResult={randomResult}/>
     </section>
   );
 };

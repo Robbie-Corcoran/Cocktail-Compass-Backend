@@ -3,11 +3,9 @@ import RandomCocktail from './RandomCocktail';
 
 type UserInputProps = {
   userInput: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setUserInput: any;
+  setUserInput: (args: string) => void;
   searchResults: string[];
   randomResult: string[];
-
 };
 
 const Search = (props: UserInputProps) => {
