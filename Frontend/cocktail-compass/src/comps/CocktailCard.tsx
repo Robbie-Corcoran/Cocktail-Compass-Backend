@@ -59,23 +59,20 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
     }
     // const addFavourite = async () => {
     try {
-      await axios.post(favouriteURL, data);
-      console.log('Favourite status updated successfully')
+      if (isFavourite) {
+        // Remove favorite
+        await axios.delete(`${favouriteURL}/${cocktail.idDrink}`);
+        setIsFavourite(false);
+        console.log('Cocktail removed from favorites');
+      } else {
+        // Add favorite
+        await axios.post(favouriteURL, data);
+        setIsFavourite(true);
+        console.log('Cocktail added to favorites');
+      }
     } catch (error) {
       console.log(error);
-      setIsFavourite(!isFavourite);
     }
-  //   addFavourite();
-  // }
-
-    // const deleteFavourite = async () => {
-    //   try {
-    //     await axios.delete(favouriteURL);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-    // deleteFavourite();
 
   };
 
@@ -86,7 +83,6 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
       if (ingredient && measure) {
         cocktailIngredients.push({ ingredient, measure });
       }
-    
     }
   };
 
