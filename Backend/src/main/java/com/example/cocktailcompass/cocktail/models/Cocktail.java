@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Cocktail {
     @JsonProperty("idDrink")
-    private int id;
+    private int idDrink;
 
     @JsonProperty("strDrink")
-    private String name;
+    private String strDrink;
 
     @JsonProperty("strIBA")
-    private String iba;
+    private String strIBA;
 
     @JsonProperty("strGlass")
-    private String glass;
+    private String strGlass;
 
     @JsonProperty("strInstructions")
-    private String instructions;
+    private String strInstructions;
 
     @JsonProperty("strDrinkThumb")
-    private String thumbnail;
+    private String strDrinkThumb;
 
     @JsonProperty("strIngredient1")
     private String strIngredient1;
@@ -111,7 +111,7 @@ public class Cocktail {
     @JsonProperty("strMeasure15")
     private String strMeasure15;
 
-    public String getName() {
-        return name;
+    public String getStrDrink() {
+        return strDrink;
     }
 }

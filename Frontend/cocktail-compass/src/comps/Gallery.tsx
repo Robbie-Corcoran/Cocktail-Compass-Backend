@@ -16,11 +16,11 @@ const Gallery = () => {
         if (userInput) {
           const response = await axios.get(baseURL);
           setSearchResults(response.data);
-          // console.log(searchResults);
+          console.log(searchResults);
         }
         const randomReponse = await axios.get(randomURL);
         setRandomResult(randomReponse.data);
-        // console.log(randomResult);
+        console.log(randomResult);
       } catch (error) {
         // console.log(error);
       }

@@ -8,23 +8,23 @@ public class FavouriteCocktail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name= "drinkId", nullable = false)
-    private int drinkId;
+    @Column(name= "idDrink", nullable = false)
+    private int idDrink;
 
-    @Column(name= "name", nullable = false)
-    private String name;
+    @Column(name= "strDrink", nullable = false)
+    private String strDrink;
 
-    @Column(name= "iba")
-    private String iba;
+    @Column(name= "strIBA")
+    private String strIBA;
 
-    @Column(name= "glass")
-    private String glass;
+    @Column(name= "strGlass")
+    private String strGlass;
 
-    @Column(name= "instructions")
-    private String instructions;
+    @Column(name= "strInstructions")
+    private String strInstructions;
 
-    @Column(name= "thumbnail")
-    private String thumbnail;
+    @Column(name= "strDrinkThumb")
+    private String strDrinkThumb;
 
     @Column(name= "strIngredient1")
     private String strIngredient1;
@@ -124,52 +124,52 @@ public class FavouriteCocktail {
         this.id = id;
     }
 
-    public int getDrinkId() {
-        return drinkId;
+    public int getIdDrink() {
+        return idDrink;
     }
 
-    public void setDrinkId(int drinkId) {
-        this.drinkId = drinkId;
+    public void setIdDrink(int drinkId) {
+        this.idDrink = drinkId;
     }
 
-    public String getName() {
-        return name;
+    public String getStrDrink() {
+        return strDrink;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStrDrink(String name) {
+        this.strDrink = name;
     }
 
-    public String getIba() {
-        return iba;
+    public String getStrIBA() {
+        return strIBA;
     }
 
-    public void setIba(String iba) {
-        this.iba = iba;
+    public void setStrIBA(String iba) {
+        this.strIBA = iba;
     }
 
-    public String getGlass() {
-        return glass;
+    public String getStrGlass() {
+        return strGlass;
     }
 
-    public void setGlass(String glass) {
-        this.glass = glass;
+    public void setStrGlass(String glass) {
+        this.strGlass = glass;
     }
 
-    public String getInstructions() {
-        return instructions;
+    public String getStrInstructions() {
+        return strInstructions;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
+    public void setStrInstructions(String instructions) {
+        this.strInstructions = instructions;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getStrDrinkThumb() {
+        return strDrinkThumb;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setStrDrinkThumb(String thumbnail) {
+        this.strDrinkThumb = thumbnail;
     }
 
     public String getStrIngredient1() {

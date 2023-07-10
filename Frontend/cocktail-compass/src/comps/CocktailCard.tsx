@@ -20,12 +20,12 @@ const CocktailCard = ({ cocktail }: { cocktail: any }) => {
     const favouriteURL = 'http://localhost:8080/api/cocktails/favourites';
     const data =  
     {
-      "drinkId": cocktail.idDrink,
-      "name": cocktail.strDrink,
-      "iba": cocktail.strIBA,
-      "glass": cocktail.strGlass,
-      "instructions": cocktail.strInstructions,
-      "thumbnail": cocktail.strDrinkThumb,
+      "drinkId": cocktail.drinkId,
+      "name": cocktail.name,
+      "iba": cocktail.iba,
+      "glass": cocktail.glass,
+      "instructions": cocktail.instructions,
+      "thumbnail": cocktail.thumbnail,
       "strIngredient1": cocktail.strIngredient1,
       "strIngredient2": cocktail.strIngredient2,
       "strIngredient3": cocktail.strIngredient3,
