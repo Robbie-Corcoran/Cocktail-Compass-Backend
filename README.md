@@ -16,7 +16,7 @@ The Cocktail Compass is a web application that allows users to search for cockta
 
 - Search by ingredients.
 - Keep track of drinks you've tried and leave a review.
-- NEW cocktail page where similar and recommended cocktails can be dispalyed, as well as tips for making.
+- NEW cocktail page where similar and recommended cocktails can be dispalyed, as well as tips for making the drink.
 
 
 ## Tech Stack
