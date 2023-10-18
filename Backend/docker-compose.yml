@@ -11,9 +11,9 @@ services:
       POSTGRES_PASSWORD: pgpassword
       POSTGRES_DB: sqlbootcamp
     ports:
-      - 5432:5432
+      - "5432:5432"
   adminer:
     image: adminer
     restart: always
     ports:
-      - 1234:8080
+      - "1234:8080"
