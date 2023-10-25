@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.List;
 
 @Service("favouriteCocktailService")
 public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
@@ -23,7 +23,7 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
     @Override
     public CocktailDTO saveFavouriteCocktail(CocktailDTO cocktailDTO) throws FavouriteCocktailServiceException {
 
-        if (favouriteCocktailRepository.findById((long) cocktailDTO.getIdDrink()).isPresent()) {
+        if (favouriteCocktailRepository.existsByIdDrink(cocktailDTO.getIdDrink())) {
             throw new FavouriteCocktailServiceException("Cocktail already favourited.");
         }
 
