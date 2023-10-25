@@ -1,7 +1,12 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
-import com.example.cocktailcompass.cocktail.CocktailService;
+import com.example.cocktailcompass.cocktail.dtos.CocktailDTO;
+import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceException;
+import com.example.cocktailcompass.cocktail.sevices.CocktailService;
 import com.example.cocktailcompass.cocktail.models.FavouriteCocktail;
+
+import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailServiceImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,25 +18,27 @@ import java.util.List;
 @RequestMapping("/api/cocktails/favourites")
 public class FavouriteCocktailController {
 
-    private final CocktailService service;
+    CocktailService cocktailService;
+    FavouriteCocktailServiceImpl favouriteCocktailService;
 
     @Autowired
-    public FavouriteCocktailController(CocktailService cocktailService) {
-        this.service = cocktailService;
+    public FavouriteCocktailController(CocktailService cocktailService, FavouriteCocktailServiceImpl favouriteCocktailService) {
+        this.cocktailService = cocktailService;
+        this.favouriteCocktailService = favouriteCocktailService;
     }
 
     @PostMapping
-    public ResponseEntity<FavouriteCocktail> saveFavouriteCocktail(@RequestBody FavouriteCocktail favouriteCocktail) {
-        FavouriteCocktail savedCocktail = service.saveFavouriteCocktail(favouriteCocktail);
-        if (savedCocktail == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(savedCocktail, HttpStatus.CREATED);
+    public FavouriteCocktail saveFavouriteCocktail(@RequestBody FavouriteCocktail favouriteCocktail) throws FavouriteCocktailServiceException {
+        ModelMapper modelMapper = new ModelMapper();
+        CocktailDTO cocktailDTO = new ModelMapper().map(favouriteCocktail, CocktailDTO.class);
+
+        CocktailDTO favouriteCocktailDTO = favouriteCocktailService.saveFavouriteCocktail(cocktailDTO);
+        return modelMapper.map(favouriteCocktailDTO, FavouriteCocktail.class);
     }
 
     @GetMapping
     public ResponseEntity<List<FavouriteCocktail>> getAllFavouriteCocktails() {
-        List<FavouriteCocktail> favouriteCocktails = service.getAllFavouriteCocktails();
+        List<FavouriteCocktail> favouriteCocktails = cocktailService.getAllFavouriteCocktails();
         if (favouriteCocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -40,7 +47,7 @@ public class FavouriteCocktailController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFavouriteCocktail(@PathVariable Long id) {
-        service.deleteFavouriteCocktail(id);
+        cocktailService.deleteFavouriteCocktail(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
