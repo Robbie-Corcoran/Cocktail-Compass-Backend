@@ -1,4 +1,4 @@
-package com.example.cocktailcompass.cocktail;
+package com.example.cocktailcompass.cocktail.sevices;
 
 import com.example.cocktailcompass.cocktail.models.FavouriteCocktail;
 import com.example.cocktailcompass.cocktail.repositories.CocktailRepository;
@@ -33,7 +33,6 @@ public class CocktailService {
     public List<Cocktail> randomCocktail(){
         return repo.randomCocktail();
     }
-
 
 
     public FavouriteCocktail saveFavouriteCocktail(FavouriteCocktail favouriteCocktail) {

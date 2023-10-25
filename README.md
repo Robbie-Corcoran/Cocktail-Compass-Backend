@@ -42,12 +42,12 @@ Follow these steps to set up and run the Cocktail Search App locally:
 1. Clone the repository:
 
    ```shell
-   git clone <repository-url>
+   git clone <[repository-url](https://github.com/Robbie-Corcoran/Cocktail-Compass-App.git)>
 
 2. Navigate to the project directory:
 
    ```shell
-   cd cocktail-search-app
+   cd Frontend/cocktail-compass
 
 3. Install dependencies:
 
@@ -57,7 +57,7 @@ Follow these steps to set up and run the Cocktail Search App locally:
 4. Start the development server:
 
    ```shell
-   npm start
+   npm run dev
 
 5. Open your browser and access the app at http://localhost:5173.
 

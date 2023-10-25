@@ -1,6 +1,6 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
-import com.example.cocktailcompass.cocktail.CocktailService;
+import com.example.cocktailcompass.cocktail.sevices.CocktailService;
 import com.example.cocktailcompass.cocktail.models.Cocktail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
