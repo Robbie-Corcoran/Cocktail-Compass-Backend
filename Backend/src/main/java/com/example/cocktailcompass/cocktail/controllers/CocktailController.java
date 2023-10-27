@@ -1,7 +1,7 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
+import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
-import com.example.cocktailcompass.cocktail.models.OldCocktail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +20,8 @@ public class CocktailController {
     }
 
     @GetMapping("/{searchQuery}")
-    public ResponseEntity<List<OldCocktail>> searchCocktails(@PathVariable String searchQuery){
-       List<OldCocktail> oldCocktails = service.searchCocktails(searchQuery);
+    public ResponseEntity<List<CocktailEntity>> searchCocktails(@PathVariable String searchQuery){
+       List<CocktailEntity> oldCocktails = service.searchCocktails(searchQuery);
         if (oldCocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -29,20 +29,20 @@ public class CocktailController {
     }
 
     @GetMapping("/ingredients/{searchQuery}")
-    public ResponseEntity<List<OldCocktail>> searchCocktailsByIngredient(@PathVariable String searchQuery){
-        List<OldCocktail> oldCocktails = service.searchByIngredient(searchQuery);
-        if (oldCocktails.isEmpty()) {
+    public ResponseEntity<List<CocktailEntity>> searchCocktailsByIngredient(@PathVariable String searchQuery){
+        List<CocktailEntity> cocktails = service.searchByIngredient(searchQuery);
+        if (cocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(oldCocktails);
+        return ResponseEntity.ok(cocktails);
     }
 
     @GetMapping("/random")
-    public ResponseEntity<List<OldCocktail>> randomCocktail(){
-        List<OldCocktail> oldCocktail = service.randomCocktail();
-        if (oldCocktail == null) {
+    public ResponseEntity<List<CocktailEntity>> randomCocktail(){
+        List<CocktailEntity> cocktail = service.randomCocktail();
+        if (cocktail == null) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(oldCocktail);
+        return ResponseEntity.ok(cocktail);
     }
 }
