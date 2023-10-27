@@ -21,16 +21,16 @@ public class CocktailController {
 
     @GetMapping("/{searchQuery}")
     public ResponseEntity<List<CocktailEntity>> searchCocktails(@PathVariable String searchQuery){
-       List<CocktailEntity> oldCocktails = service.searchCocktails(searchQuery);
-        if (oldCocktails.isEmpty()) {
+       List<CocktailEntity> cocktails = service.searchCocktailsByName(searchQuery);
+        if (cocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-       return ResponseEntity.ok(oldCocktails);
+       return ResponseEntity.ok(cocktails);
     }
 
     @GetMapping("/ingredients/{searchQuery}")
     public ResponseEntity<List<CocktailEntity>> searchCocktailsByIngredient(@PathVariable String searchQuery){
-        List<CocktailEntity> cocktails = service.searchByIngredient(searchQuery);
+        List<CocktailEntity> cocktails = service.searchCocktailsByIngredient(searchQuery);
         if (cocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

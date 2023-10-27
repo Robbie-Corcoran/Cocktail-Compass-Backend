@@ -3,6 +3,7 @@ package com.example.cocktailcompass.cocktail.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+@SuppressWarnings("ALL")
 @Entity
 public class CocktailEntity {
 

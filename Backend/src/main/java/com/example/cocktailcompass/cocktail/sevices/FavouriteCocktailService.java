@@ -6,4 +6,5 @@ import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceE
 public interface FavouriteCocktailService {
 
     CocktailDTO saveFavouriteCocktail(CocktailDTO cocktailDTO) throws FavouriteCocktailServiceException;
-}
+
+    }
