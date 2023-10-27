@@ -1,5 +1,6 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
+import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceException;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
@@ -28,12 +29,12 @@ public class FavouriteCocktailController {
     }
 
     @PostMapping
-    public FavouriteCocktail saveFavouriteCocktail(@RequestBody FavouriteCocktail favouriteCocktail) throws FavouriteCocktailServiceException {
+    public CocktailEntity saveFavouriteCocktail(@RequestBody CocktailEntity favouriteCocktail) throws FavouriteCocktailServiceException {
         ModelMapper modelMapper = new ModelMapper();
         CocktailDTO cocktailDTO = new ModelMapper().map(favouriteCocktail, CocktailDTO.class);
 
         CocktailDTO favouriteCocktailDTO = favouriteCocktailService.saveFavouriteCocktail(cocktailDTO);
-        return modelMapper.map(favouriteCocktailDTO, FavouriteCocktail.class);
+        return modelMapper.map(favouriteCocktailDTO, CocktailEntity.class);
     }
 
     @GetMapping
