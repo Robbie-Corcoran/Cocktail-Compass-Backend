@@ -1,6 +1,6 @@
 package com.example.cocktailcompass.cocktail.repositories;
 
-import com.example.cocktailcompass.cocktail.models.Cocktail;
+import com.example.cocktailcompass.cocktail.models.OldCocktail;
 import com.example.cocktailcompass.cocktail.models.CocktailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,21 +21,21 @@ public class CocktailRepository {
         this.favRepo = favRepo;
     }
 
-    public List<Cocktail> searchCocktails(String searchQuery) {
+    public List<OldCocktail> searchCocktails(String searchQuery) {
         String apiUrl = BASE_URL + "search.php?s=" + searchQuery;
         CocktailResponse response = restTemplate.getForObject(apiUrl, CocktailResponse.class);
         assert response != null;
         return response.getCocktails();
     }
 
-    public List<Cocktail> searchByIngredient(String searchQuery) {
+    public List<OldCocktail> searchByIngredient(String searchQuery) {
         String apiIngredientUrl = BASE_URL + "filter.php?i=" + searchQuery;
         CocktailResponse response = restTemplate.getForObject(apiIngredientUrl, CocktailResponse.class);
         assert response != null;
         return response.getCocktails();
     }
 
-    public List<Cocktail> randomCocktail() {
+    public List<OldCocktail> randomCocktail() {
         String apiRandomUrl = BASE_URL + "random.php";
         CocktailResponse response = restTemplate.getForObject(apiRandomUrl, CocktailResponse.class);
         assert response != null;

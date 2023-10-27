@@ -2,13 +2,12 @@ package com.example.cocktailcompass.cocktail.sevices;
 
 import com.example.cocktailcompass.cocktail.models.FavouriteCocktail;
 import com.example.cocktailcompass.cocktail.repositories.CocktailRepository;
-import com.example.cocktailcompass.cocktail.models.Cocktail;
+import com.example.cocktailcompass.cocktail.models.OldCocktail;
 import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CocktailService {
@@ -22,15 +21,15 @@ public class CocktailService {
         this.favRepo = favRepo;
     }
 
-    public List<Cocktail> searchCocktails(String searchQuery) {
+    public List<OldCocktail> searchCocktails(String searchQuery) {
             return repo.searchCocktails(searchQuery);
     }
 
-    public List<Cocktail> searchByIngredient(String searchQuery) {
+    public List<OldCocktail> searchByIngredient(String searchQuery) {
         return repo.searchByIngredient(searchQuery);
     }
 
-    public List<Cocktail> randomCocktail(){
+    public List<OldCocktail> randomCocktail(){
         return repo.randomCocktail();
     }
 

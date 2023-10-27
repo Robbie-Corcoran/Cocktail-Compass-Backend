@@ -1,4 +1,4 @@
-package com.example.cocktailcompass.cocktail.dtos;
+package com.example.cocktailcompass.cocktail.models.dtos;
 
 public class CocktailDTO {
     private Long id;
