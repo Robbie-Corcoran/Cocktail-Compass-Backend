@@ -1,9 +1,9 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
+import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceException;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
-import com.example.cocktailcompass.cocktail.models.FavouriteCocktail;
 
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailServiceImpl;
 import org.modelmapper.ModelMapper;
@@ -28,17 +28,17 @@ public class FavouriteCocktailController {
     }
 
     @PostMapping
-    public FavouriteCocktail saveFavouriteCocktail(@RequestBody FavouriteCocktail favouriteCocktail) throws FavouriteCocktailServiceException {
+    public CocktailEntity saveFavouriteCocktail(@RequestBody CocktailEntity favouriteCocktail) throws FavouriteCocktailServiceException {
         ModelMapper modelMapper = new ModelMapper();
         CocktailDTO cocktailDTO = new ModelMapper().map(favouriteCocktail, CocktailDTO.class);
 
         CocktailDTO favouriteCocktailDTO = favouriteCocktailService.saveFavouriteCocktail(cocktailDTO);
-        return modelMapper.map(favouriteCocktailDTO, FavouriteCocktail.class);
+        return modelMapper.map(favouriteCocktailDTO, CocktailEntity.class);
     }
 
     @GetMapping
-    public ResponseEntity<List<FavouriteCocktail>> getAllFavouriteCocktails() {
-        List<FavouriteCocktail> favouriteCocktails = cocktailService.getAllFavouriteCocktails();
+    public ResponseEntity<List<CocktailEntity>> getAllFavouriteCocktails() {
+        List<CocktailEntity> favouriteCocktails = cocktailService.getAllFavouriteCocktails();
         if (favouriteCocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

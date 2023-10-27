@@ -21,13 +21,6 @@ public class CocktailRepository {
         this.favRepo = favRepo;
     }
 
-    public List<CocktailEntity> searchCocktails(String searchQuery) {
-        String apiUrl = BASE_URL + "search.php?s=" + searchQuery;
-        CocktailResponse response = restTemplate.getForObject(apiUrl, CocktailResponse.class);
-        assert response != null;
-        return response.getCocktails();
-    }
-
     public List<CocktailEntity> searchByIngredient(String searchQuery) {
         String apiIngredientUrl = BASE_URL + "filter.php?i=" + searchQuery;
         CocktailResponse response = restTemplate.getForObject(apiIngredientUrl, CocktailResponse.class);
