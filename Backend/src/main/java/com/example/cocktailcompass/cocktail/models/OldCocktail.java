@@ -2,7 +2,7 @@ package com.example.cocktailcompass.cocktail.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Cocktail {
+public class OldCocktail {
     @JsonProperty("idDrink")
     private int idDrink;
 
@@ -110,8 +110,4 @@ public class Cocktail {
 
     @JsonProperty("strMeasure15")
     private String strMeasure15;
-
-    public String getStrDrink() {
-        return strDrink;
-    }
 }
