@@ -1,12 +1,9 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
-import com.example.cocktailcompass.cocktail.models.CocktailEntity;
-import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceException;
+import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
-
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailServiceImpl;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

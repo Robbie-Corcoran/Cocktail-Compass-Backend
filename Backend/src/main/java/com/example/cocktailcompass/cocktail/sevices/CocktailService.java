@@ -16,7 +16,7 @@ public class CocktailService {
     private final FavouriteCocktailRepository favRepo;
     private final RestTemplate restTemplate;
 
-    private final String BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/" ;
+    private final String BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/";
 
 
     @Autowired
@@ -44,9 +44,10 @@ public class CocktailService {
             return cocktailResponse.getCocktails();
         } else {
             return Collections.emptyList();
-        }}
+        }
+    }
 
-    public List<CocktailEntity> randomCocktail(){
+    public List<CocktailEntity> randomCocktail() {
         String apiRandomUrl = BASE_URL + "random.php";
         CocktailResponse cocktailResponse = restTemplate.getForObject(apiRandomUrl, CocktailResponse.class);
 

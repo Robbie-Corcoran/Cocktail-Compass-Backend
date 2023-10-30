@@ -2,7 +2,6 @@ package com.example.cocktailcompass.cocktail.sevices;
 
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
-import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceException;
 import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
     FavouriteCocktailRepository favouriteCocktailRepository;
 
     @Autowired
-    public FavouriteCocktailServiceImpl(FavouriteCocktailRepository favouriteCocktailRepository){
+    public FavouriteCocktailServiceImpl(FavouriteCocktailRepository favouriteCocktailRepository) {
         this.favouriteCocktailRepository = favouriteCocktailRepository;
     }
 
