@@ -28,12 +28,8 @@ public class FavouriteCocktailController {
     }
 
     @PostMapping
-    public CocktailEntity saveFavouriteCocktail(@RequestBody CocktailEntity favouriteCocktail) throws FavouriteCocktailServiceException {
-        ModelMapper modelMapper = new ModelMapper();
-        CocktailDTO cocktailDTO = new ModelMapper().map(favouriteCocktail, CocktailDTO.class);
-
-        CocktailDTO favouriteCocktailDTO = favouriteCocktailService.saveFavouriteCocktail(cocktailDTO);
-        return modelMapper.map(favouriteCocktailDTO, CocktailEntity.class);
+    public CocktailDTO saveFavouriteCocktail(@RequestBody CocktailDTO favouriteCocktail) throws FavouriteCocktailServiceException {
+        return favouriteCocktailService.saveFavouriteCocktail(favouriteCocktail);
     }
 
     @GetMapping
