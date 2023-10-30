@@ -43,6 +43,11 @@ public class FavouriteCocktailRepositoryTest {
 
     }
 
+    @AfterEach
+    void cleanup() {
+        testEntityManager.clear();
+    }
+
     @Test
     @DisplayName("save() correctly saves a FavouriteCocktail")
     void testFavouriteCocktailRepo_whenCocktailDTOIsProvided_successfullySavesFavouriteCocktail(){
