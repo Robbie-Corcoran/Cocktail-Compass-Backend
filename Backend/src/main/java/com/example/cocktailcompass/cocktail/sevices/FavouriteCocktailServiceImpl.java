@@ -42,8 +42,7 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
     @Override
     public List<CocktailDTO> findAllFavouriteCocktails() {
         ModelMapper modelMapper = new ModelMapper();
-        List<CocktailDTO> favouriteCocktails = (List<CocktailDTO>) modelMapper.map(favouriteCocktailRepository.findAll(), CocktailDTO.class);
-        return favouriteCocktails;
+        return (List<CocktailDTO>) modelMapper.map(favouriteCocktailRepository.findAll(), CocktailDTO.class);
     }
 
     @Override

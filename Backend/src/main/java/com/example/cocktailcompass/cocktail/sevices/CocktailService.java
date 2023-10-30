@@ -34,7 +34,6 @@ public class CocktailService {
         } else {
             return Collections.emptyList();
         }
-
     }
 
     public List<CocktailEntity> searchCocktailsByIngredient(String searchQuery) {
@@ -57,18 +56,4 @@ public class CocktailService {
             return Collections.emptyList();
         }
     }
-
-
-    public CocktailEntity saveFavouriteCocktail(CocktailEntity favouriteCocktail) {
-        return favRepo.save(favouriteCocktail);
-    }
-
-    public List<CocktailEntity> getAllFavouriteCocktails() {
-        return (List<CocktailEntity>) favRepo.findAll();
-    }
-
-    public void deleteFavouriteCocktail(Long id) {
-        favRepo.deleteById(id);
-    }
-
 }

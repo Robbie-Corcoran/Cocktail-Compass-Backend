@@ -33,8 +33,9 @@ public class FavouriteCocktailController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CocktailEntity>> getAllFavouriteCocktails() {
-        List<CocktailEntity> favouriteCocktails = cocktailService.getAllFavouriteCocktails();
+    public ResponseEntity<List<CocktailDTO>> getAllFavouriteCocktails() {
+        List<CocktailDTO> favouriteCocktails = favouriteCocktailService.findAllFavouriteCocktails();
+
         if (favouriteCocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -43,7 +44,7 @@ public class FavouriteCocktailController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFavouriteCocktail(@PathVariable Long id) {
-        cocktailService.deleteFavouriteCocktail(id);
+        favouriteCocktailService.deleteFavouriteCocktail(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
