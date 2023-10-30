@@ -8,7 +8,9 @@ import java.util.List;
 public interface FavouriteCocktailRepository extends JpaRepository<CocktailEntity, Long> {
     boolean existsByIdDrink(int idDrink);
 
+    CocktailEntity save(CocktailEntity cocktailEntity);
+
     List<CocktailEntity> findAll();
 
-    CocktailEntity save(CocktailEntity cocktailEntity);
+    void deleteById(Long id);
 }

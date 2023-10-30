@@ -10,4 +10,7 @@ public interface FavouriteCocktailService {
     CocktailDTO saveFavouriteCocktail(CocktailDTO cocktailDTO) throws FavouriteCocktailServiceException;
 
     List<CocktailDTO> findAllFavouriteCocktails();
+
+    void deleteFavouriteCocktail(Long id);
+
     }

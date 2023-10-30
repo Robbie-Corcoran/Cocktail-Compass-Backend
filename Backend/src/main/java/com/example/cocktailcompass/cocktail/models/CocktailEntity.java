@@ -33,7 +33,7 @@ public class CocktailEntity {
     private String strGlass;
 
     @JsonProperty("strInstructions")
-    @Column(name= "strInstructions")
+    @Column(name= "strInstructions", length = 1024)
     private String strInstructions;
 
     @JsonProperty("strDrinkThumb")

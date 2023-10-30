@@ -28,8 +28,8 @@ public class FavouriteCocktailController {
     }
 
     @PostMapping
-    public CocktailDTO saveFavouriteCocktail(@RequestBody CocktailDTO favouriteCocktail) throws FavouriteCocktailServiceException {
-        return favouriteCocktailService.saveFavouriteCocktail(favouriteCocktail);
+    public ResponseEntity<CocktailDTO> saveFavouriteCocktail(@RequestBody CocktailDTO favouriteCocktail) throws FavouriteCocktailServiceException {
+        return new ResponseEntity<>(favouriteCocktailService.saveFavouriteCocktail(favouriteCocktail), HttpStatus.OK);
     }
 
     @GetMapping

@@ -21,17 +21,18 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
     }
 
     @Override
-    public CocktailDTO saveFavouriteCocktail(CocktailDTO cocktailDTO) throws FavouriteCocktailServiceException {
-
-        if (favouriteCocktailRepository.existsByIdDrink(cocktailDTO.getIdDrink())) {
-            throw new FavouriteCocktailServiceException("Cocktail already favourited.");
-        }
-        if (cocktailDTO.getStrDrink() == null || cocktailDTO.getStrDrink().isEmpty()) {
-            throw new FavouriteCocktailServiceException("Drink name cannot be null or empty.");
-        }
+    public CocktailDTO saveFavouriteCocktail(CocktailDTO cocktailDTO) {
 
         ModelMapper modelMapper = new ModelMapper();
-        cocktailDTO.setFavourite(true);
+
+//        if (favouriteCocktailRepository.existsByIdDrink(cocktailDTO.getIdDrink())) {
+//            throw new FavouriteCocktailServiceException("Cocktail already favourited.");
+//        }
+//        if (cocktailDTO.getStrDrink() == null || cocktailDTO.getStrDrink().isEmpty()) {
+//            throw new FavouriteCocktailServiceException("Drink name cannot be null or empty.");
+//        }
+
+//        cocktailDTO.setFavourite(true);
         CocktailEntity favouriteCocktailEntity = modelMapper.map(cocktailDTO, CocktailEntity.class);
         CocktailEntity storedFavouriteCocktail = favouriteCocktailRepository.save(favouriteCocktailEntity);
 
@@ -43,5 +44,10 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
         ModelMapper modelMapper = new ModelMapper();
         List<CocktailDTO> favouriteCocktails = (List<CocktailDTO>) modelMapper.map(favouriteCocktailRepository.findAll(), CocktailDTO.class);
         return favouriteCocktails;
+    }
+
+    @Override
+    public void deleteFavouriteCocktail(Long id) {
+        favouriteCocktailRepository.deleteById(id);
     }
 }
