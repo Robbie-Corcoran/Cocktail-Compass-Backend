@@ -1,12 +1,9 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
-import com.example.cocktailcompass.cocktail.models.CocktailEntity;
-import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceException;
+import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
-
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailServiceImpl;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,17 +25,14 @@ public class FavouriteCocktailController {
     }
 
     @PostMapping
-    public CocktailEntity saveFavouriteCocktail(@RequestBody CocktailEntity favouriteCocktail) throws FavouriteCocktailServiceException {
-        ModelMapper modelMapper = new ModelMapper();
-        CocktailDTO cocktailDTO = new ModelMapper().map(favouriteCocktail, CocktailDTO.class);
-
-        CocktailDTO favouriteCocktailDTO = favouriteCocktailService.saveFavouriteCocktail(cocktailDTO);
-        return modelMapper.map(favouriteCocktailDTO, CocktailEntity.class);
+    public ResponseEntity<CocktailDTO> saveFavouriteCocktail(@RequestBody CocktailDTO favouriteCocktail) throws FavouriteCocktailServiceException {
+        return new ResponseEntity<>(favouriteCocktailService.saveFavouriteCocktail(favouriteCocktail), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<CocktailEntity>> getAllFavouriteCocktails() {
-        List<CocktailEntity> favouriteCocktails = cocktailService.getAllFavouriteCocktails();
+    public ResponseEntity<List<CocktailDTO>> getAllFavouriteCocktails() {
+        List<CocktailDTO> favouriteCocktails = favouriteCocktailService.findAllFavouriteCocktails();
+
         if (favouriteCocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -47,7 +41,7 @@ public class FavouriteCocktailController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFavouriteCocktail(@PathVariable Long id) {
-        cocktailService.deleteFavouriteCocktail(id);
+        favouriteCocktailService.deleteFavouriteCocktail(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

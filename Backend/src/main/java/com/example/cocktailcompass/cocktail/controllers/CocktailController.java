@@ -4,7 +4,10 @@ import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,16 +23,16 @@ public class CocktailController {
     }
 
     @GetMapping("/{searchQuery}")
-    public ResponseEntity<List<CocktailEntity>> searchCocktails(@PathVariable String searchQuery){
-       List<CocktailEntity> cocktails = service.searchCocktailsByName(searchQuery);
+    public ResponseEntity<List<CocktailEntity>> searchCocktails(@PathVariable String searchQuery) {
+        List<CocktailEntity> cocktails = service.searchCocktailsByName(searchQuery);
         if (cocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-       return ResponseEntity.ok(cocktails);
+        return ResponseEntity.ok(cocktails);
     }
 
     @GetMapping("/ingredients/{searchQuery}")
-    public ResponseEntity<List<CocktailEntity>> searchCocktailsByIngredient(@PathVariable String searchQuery){
+    public ResponseEntity<List<CocktailEntity>> searchCocktailsByIngredient(@PathVariable String searchQuery) {
         List<CocktailEntity> cocktails = service.searchCocktailsByIngredient(searchQuery);
         if (cocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -38,7 +41,7 @@ public class CocktailController {
     }
 
     @GetMapping("/random")
-    public ResponseEntity<List<CocktailEntity>> randomCocktail(){
+    public ResponseEntity<List<CocktailEntity>> randomCocktail() {
         List<CocktailEntity> cocktail = service.randomCocktail();
         if (cocktail == null) {
             return ResponseEntity.noContent().build();
