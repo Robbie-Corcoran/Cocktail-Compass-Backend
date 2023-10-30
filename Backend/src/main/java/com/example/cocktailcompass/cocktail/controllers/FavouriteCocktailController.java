@@ -40,8 +40,8 @@ public class FavouriteCocktailController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFavouriteCocktail(@PathVariable Long id) {
-        favouriteCocktailService.deleteFavouriteCocktail(id);
+    public ResponseEntity<Void> deleteFavouriteCocktail(@PathVariable Integer idDrink) {
+        favouriteCocktailService.deleteFavouriteCocktail(idDrink);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

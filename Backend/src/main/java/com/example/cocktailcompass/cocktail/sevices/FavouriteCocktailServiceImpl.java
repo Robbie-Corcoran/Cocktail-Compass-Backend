@@ -45,7 +45,7 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
     }
 
     @Override
-    public void deleteFavouriteCocktail(Long id) {
-        favouriteCocktailRepository.deleteById(id);
+    public void deleteFavouriteCocktail(Integer idDrink) {
+        favouriteCocktailRepository.deleteById(idDrink);
     }
 }

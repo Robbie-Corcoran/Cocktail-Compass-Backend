@@ -1,8 +1,7 @@
 package com.example.cocktailcompass.cocktail.models.dtos;
 
 public class CocktailDTO {
-    private Long id;
-    private int idDrink;
+    private Integer idDrink;
     private String strDrink;
     private boolean isFavourite;
     private String strIBA;
@@ -41,14 +40,6 @@ public class CocktailDTO {
     private String strMeasure15;
 
     public CocktailDTO() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getIdDrink() {
