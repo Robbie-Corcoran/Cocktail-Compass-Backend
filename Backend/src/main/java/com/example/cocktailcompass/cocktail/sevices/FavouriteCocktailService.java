@@ -11,6 +11,6 @@ public interface FavouriteCocktailService {
 
     List<CocktailDTO> findAllFavouriteCocktails();
 
-    void deleteFavouriteCocktail(Long id);
+    void deleteFavouriteCocktail(Integer idDrink);
 
 }
