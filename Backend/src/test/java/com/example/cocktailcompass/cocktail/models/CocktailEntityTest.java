@@ -1,9 +1,10 @@
-package com.example.cocktailcompass.cocktail;
+package com.example.cocktailcompass.cocktail.models;
 
 
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
+import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 public class CocktailEntityTest {
 
-    CocktailEntity cocktailEntity;
+    @Autowired
+    private TestEntityManager testEntityManager;
+
     CocktailDTO cocktailDTO;
 
     @BeforeEach
@@ -75,5 +78,20 @@ public class CocktailEntityTest {
                 "strDrink should not be null");
     }
 
+    @Test
+    @DisplayName("Two Entities cannot have the same id.")
+    void testCocktailEntity_whenIdIsNotUnique_shouldThrowException() {
+//        Arrange
+        ModelMapper modelMapper = new ModelMapper();
+        CocktailEntity cocktailEntity = modelMapper.map(cocktailDTO, CocktailEntity.class);
+        CocktailEntity duplicateCocktailEntity = modelMapper.map(cocktailDTO, CocktailEntity.class);
 
+        testEntityManager.persistAndFlush(cocktailEntity);
+
+//        Act & Assert
+        assertThrows(
+                PersistenceException.class,
+                () -> testEntityManager.persistAndFlush(duplicateCocktailEntity),
+                "Should have thrown Exception");
+    }
 }
