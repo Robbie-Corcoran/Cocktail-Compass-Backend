@@ -1,9 +1,7 @@
 package com.example.cocktailcompass.cocktail.models;
 
 
-import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
-import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
 import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,13 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 public class CocktailEntityTest {
 
+    CocktailDTO cocktailDTO;
     @Autowired
     private TestEntityManager testEntityManager;
 
-    CocktailDTO cocktailDTO;
-
     @BeforeEach
-    void setup(){
+    void setup() {
         cocktailDTO = new CocktailDTO();
         cocktailDTO.setIdDrink(12345);
         cocktailDTO.setStrDrink("Mocktail");
@@ -43,7 +40,7 @@ public class CocktailEntityTest {
 
     @Test
     @DisplayName("CocktailEntity is created when mapped from CocktailDTO")
-    void testCocktailEntity_whenValidCocktailDTOIsConverted_shouldReturnStoredCocktailDetails(){
+    void testCocktailEntity_whenValidCocktailDTOIsConverted_shouldReturnStoredCocktailDetails() {
 //        Arrange & Act
         ModelMapper modelMapper = new ModelMapper();
         CocktailEntity cocktailEntity = modelMapper.map(cocktailDTO, CocktailEntity.class);

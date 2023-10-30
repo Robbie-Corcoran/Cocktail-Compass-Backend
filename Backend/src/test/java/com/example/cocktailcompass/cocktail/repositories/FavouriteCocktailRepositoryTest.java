@@ -2,7 +2,10 @@ package com.example.cocktailcompass.cocktail.repositories;
 
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -10,7 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 public class FavouriteCocktailRepositoryTest {
@@ -50,9 +53,11 @@ public class FavouriteCocktailRepositoryTest {
 
     @Test
     @DisplayName("save() correctly saves a FavouriteCocktail")
-    void testFavouriteCocktailRepo_whenCocktailDTOIsProvided_successfullySavesFavouriteCocktail(){
-//        Arrange & Act
+    void testFavouriteCocktailRepo_whenCocktailDTOIsProvided_successfullySavesFavouriteCocktail() {
+//        Arrange
         testEntityManager.persistAndFlush(cocktailEntity);
+
+//        Act
         CocktailEntity storedFavouriteCocktail = favouriteCocktailRepository.save(cocktailEntity);
 
 //        Assert
@@ -65,10 +70,11 @@ public class FavouriteCocktailRepositoryTest {
     @Test
     @DisplayName("findAll()")
     void testFavouriteCocktailRepo_whenFindAllIsCalled_shouldReturnThreeCocktails() {
-//        Arrange & Act
+//        Arrange
         testEntityManager.persistAndFlush(cocktailEntity);
         testEntityManager.persistAndFlush(cocktailEntityTwo);
 
+//        Act
         favouriteCocktailRepository.save(cocktailEntity);
         favouriteCocktailRepository.save(cocktailEntityTwo);
         List<CocktailEntity> savedFavouriteCocktails = favouriteCocktailRepository.findAll();
@@ -89,10 +95,10 @@ public class FavouriteCocktailRepositoryTest {
         testEntityManager.persistAndFlush(cocktailEntity);
         testEntityManager.persistAndFlush(cocktailEntityTwo);
 
+//        Act
         favouriteCocktailRepository.save(cocktailEntity);
         favouriteCocktailRepository.save(cocktailEntityTwo);
 
-//        Act
         favouriteCocktailRepository.deleteById(cocktailEntity.getIdDrink());
         List<CocktailEntity> savedFavouriteCocktails = favouriteCocktailRepository.findAll();
 
