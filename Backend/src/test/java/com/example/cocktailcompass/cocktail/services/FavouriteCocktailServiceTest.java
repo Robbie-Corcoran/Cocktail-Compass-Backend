@@ -2,10 +2,8 @@ package com.example.cocktailcompass.cocktail.services;
 
 import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceException;
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
-import com.example.cocktailcompass.cocktail.models.CocktailResponse;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
-import com.example.cocktailcompass.cocktail.sevices.CocktailService;
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,11 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
-
-import static org.assertj.core.api.BDDAssumptions.given;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class FavouriteCocktailServiceTest {
@@ -62,6 +57,18 @@ public class FavouriteCocktailServiceTest {
         assertEquals(cocktailDTO.getStrDrink(), cocktailFromService.getStrDrink(), "Returned CocktailDTO should have the name: Mocktail.");
         assertTrue(cocktailFromService.isFavourite(), "Returned CocktailDTO should have isFavourite set to true");
         assertEquals(cocktailDTO.getStrIBA(), cocktailFromService.getStrIBA(), "Returned CocktailDTO should have the strIBA: Contemporary Classics");
-
     }
+
+
+    @Test
+    @DisplayName("saveFavouriteCocktail() throws exception if idDrink exists in repo already.")
+    void testSaveFavouriteCocktail_whenExistingCocktailIdProvided_throwException() {
+//        Arrange
+        when(favouriteCocktailRepository.existsByIdDrink(cocktailDTO.getIdDrink())).thenReturn(true);
+
+//        Act
+        assertThrows(FavouriteCocktailServiceException.class, () -> favouriteCocktailService.saveFavouriteCocktail(cocktailDTO), "saveFavouriteCocktail should throw exception");
+        verify(favouriteCocktailRepository, never()).save(any(CocktailEntity.class));
+    }
+
 }
