@@ -1,5 +1,6 @@
 package com.example.cocktailcompass.cocktail.sevices;
 
+import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceException;
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
@@ -20,18 +21,18 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
     }
 
     @Override
-    public CocktailDTO saveFavouriteCocktail(CocktailDTO cocktailDTO) {
+    public CocktailDTO saveFavouriteCocktail(CocktailDTO cocktailDTO) throws FavouriteCocktailServiceException {
 
         ModelMapper modelMapper = new ModelMapper();
 
-//        if (favouriteCocktailRepository.existsByIdDrink(cocktailDTO.getIdDrink())) {
-//            throw new FavouriteCocktailServiceException("Cocktail already favourited.");
-//        }
-//        if (cocktailDTO.getStrDrink() == null || cocktailDTO.getStrDrink().isEmpty()) {
-//            throw new FavouriteCocktailServiceException("Drink name cannot be null or empty.");
-//        }
+        if (favouriteCocktailRepository.existsByIdDrink(cocktailDTO.getIdDrink())) {
+            throw new FavouriteCocktailServiceException("Cocktail already favourited.");
+        }
+        if (cocktailDTO.getStrDrink() == null || cocktailDTO.getStrDrink().isEmpty()) {
+            throw new FavouriteCocktailServiceException("Drink name cannot be null or empty.");
+        }
 
-//        cocktailDTO.setFavourite(true);
+        cocktailDTO.setFavourite(true);
         CocktailEntity favouriteCocktailEntity = modelMapper.map(cocktailDTO, CocktailEntity.class);
         CocktailEntity storedFavouriteCocktail = favouriteCocktailRepository.save(favouriteCocktailEntity);
 
