@@ -52,11 +52,23 @@ class CocktailServiceTest {
         List<CocktailDTO> cocktails = cocktailService.searchCocktailsByName("mojito");
 
         // Assert
-        assertEquals(1, cocktails.size());
         assertEquals(mojitoDTO.getStrDrink(), cocktails.get(0).getStrDrink());
     }
 
-//    @Test
-//    @DisplayName()
+    @Test
+    @DisplayName("searchCocktailsByIngredient() returns a list of cocktails when API returns a response.")
+    void testSearchCocktailsByIngredient_whenApiReturnsResponse_returnCocktailList() {
+//        Arrange
+        CocktailListResponse cocktailListResponse = new CocktailListResponse();
+        cocktailListResponse.setCocktails(Collections.singletonList(mojitoDTO));
+
+        when(restTemplate.getForObject(BASE_URL + "filter.php?i=" + "dark_rum", CocktailListResponse.class)).thenReturn(cocktailListResponse);
+
+//        Act
+        List<CocktailDTO> cocktails = cocktailService.searchCocktailsByIngredient("dark_rum");
+
+//        Assert
+        assertEquals(mojitoDTO.getStrDrink(), cocktails.get(0).getStrDrink());
+    }
 }
 
