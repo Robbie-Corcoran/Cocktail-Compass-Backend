@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CocktailService {
@@ -24,34 +25,23 @@ public class CocktailService {
 
     public List<CocktailDTO> searchCocktailsByName(String searchQuery) {
         String apiUrl = BASE_URL + "search.php?s=" + searchQuery;
-        CocktailListResponse cocktailListResponse = restTemplate.getForObject(apiUrl, CocktailListResponse.class);
-
-        if (cocktailListResponse != null) {
-            return cocktailListResponse.getCocktails();
-        } else {
-            return Collections.emptyList();
-        }
+        return fetchCocktailList(apiUrl);
     }
 
     public List<CocktailDTO> searchCocktailsByIngredient(String searchQuery) {
         String apiIngredientUrl = BASE_URL + "filter.php?i=" + searchQuery;
-        CocktailListResponse cocktailListResponse = restTemplate.getForObject(apiIngredientUrl, CocktailListResponse.class);
-
-        if (cocktailListResponse != null) {
-            return cocktailListResponse.getCocktails();
-        } else {
-            return Collections.emptyList();
-        }
+        return fetchCocktailList(apiIngredientUrl);
     }
 
     public List<CocktailDTO> randomCocktail() {
         String apiRandomUrl = BASE_URL + "random.php";
-        CocktailListResponse cocktailListResponse = restTemplate.getForObject(apiRandomUrl, CocktailListResponse.class);
+        return fetchCocktailList(apiRandomUrl);
+    }
 
-        if (cocktailListResponse != null) {
-            return cocktailListResponse.getCocktails();
-        } else {
-            return Collections.emptyList();
-        }
+    private List<CocktailDTO> fetchCocktailList(String apiUrl) {
+        CocktailListResponse cocktailListResponse = restTemplate.getForObject(apiUrl, CocktailListResponse.class);
+        return Optional.ofNullable(cocktailListResponse)
+                .map(CocktailListResponse::getCocktails)
+                .orElse(Collections.emptyList());
     }
 }
