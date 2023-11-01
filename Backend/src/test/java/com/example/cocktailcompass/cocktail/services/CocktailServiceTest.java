@@ -86,7 +86,7 @@ class CocktailServiceTest {
 //        Assert
         assertNotNull(cocktails, "Returned cocktail should not be null");
         assertEquals(1, cocktails.size(), "Returned cocktailList should have a size of one.");
-        assertNotEquals(2, cocktails.size(), "Returned cocktailList should have a max-size of one.");
+        assertEquals(mojitoDTO.getStrDrink(), cocktails.get(0).getStrDrink(), "Returned cocktail should be the same as the one set in the test.");
     }
 }
 
