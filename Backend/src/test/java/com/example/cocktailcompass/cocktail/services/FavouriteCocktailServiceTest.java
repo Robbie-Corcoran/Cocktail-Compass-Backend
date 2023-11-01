@@ -29,38 +29,54 @@ public class FavouriteCocktailServiceTest {
     @InjectMocks
     FavouriteCocktailServiceImpl favouriteCocktailService;
 
-    CocktailDTO cocktailDTO;
+    CocktailDTO mojitoDTO;
+    CocktailDTO margaritaDTO;
 
     @BeforeEach
     void setup() {
-        cocktailDTO = new CocktailDTO();
-        cocktailDTO.setIdDrink(11000);
-        cocktailDTO.setStrDrink("Mojito");
-        cocktailDTO.setFavourite(false);
-        cocktailDTO.setStrIBA("Contemporary Classics");
-        cocktailDTO.setStrGlass("Highball glass");
-        cocktailDTO.setStrInstructions("Muddle mint leaves with sugar and lime juice. Add a splash of soda water. Fill the glass with cracked ice. Pour the rum and top with soda water. Garnish and serve with straw.");
-        cocktailDTO.setStrDrinkThumb("https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg");
-        cocktailDTO.setStrIngredient1("White Rum");
-        cocktailDTO.setStrIngredient2("Lime Juice");
-        cocktailDTO.setStrIngredient3("Sugar");
-        cocktailDTO.setStrMeasure1("2-3 oz");
-        cocktailDTO.setStrMeasure2("Juice of 1 Lime");
-        cocktailDTO.setStrMeasure3("2 tsp Sugar");
+        mojitoDTO = new CocktailDTO();
+        mojitoDTO.setIdDrink(11000);
+        mojitoDTO.setStrDrink("Mojito");
+        mojitoDTO.setFavourite(false);
+        mojitoDTO.setStrIBA("Contemporary Classics");
+        mojitoDTO.setStrGlass("Highball glass");
+        mojitoDTO.setStrInstructions("Muddle mint leaves with sugar and lime juice. Add a splash of soda water. Fill the glass with cracked ice. Pour the rum and top with soda water. Garnish and serve with straw.");
+        mojitoDTO.setStrDrinkThumb("https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg");
+        mojitoDTO.setStrIngredient1("White Rum");
+        mojitoDTO.setStrIngredient2("Lime Juice");
+        mojitoDTO.setStrIngredient3("Sugar");
+        mojitoDTO.setStrMeasure1("2-3 oz");
+        mojitoDTO.setStrMeasure2("Juice of 1 Lime");
+        mojitoDTO.setStrMeasure3("2 tsp Sugar");
+
+        margaritaDTO = new CocktailDTO();
+        margaritaDTO.setIdDrink(11007);
+        margaritaDTO.setStrDrink("Margarita");
+        margaritaDTO.setFavourite(false);
+        margaritaDTO.setStrIBA("Contemporary Classics");
+        margaritaDTO.setStrGlass("Cocktail glass");
+        margaritaDTO.setStrInstructions("Rub the rim of the glass with the lime slice to make the salt stick to it. Take care to moisten only the outer rim and sprinkle the salt on it. The salt should present to the lips of the imbiber and never mix into the cocktail. Shake the other ingredients with ice, then carefully pour into the glass.");
+        margaritaDTO.setStrDrinkThumb("https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg");
+        margaritaDTO.setStrIngredient1("Tequila");
+        margaritaDTO.setStrIngredient2("Triple sec");
+        margaritaDTO.setStrIngredient3("Lime juice");
+        margaritaDTO.setStrMeasure1("1 1/2 oz");
+        margaritaDTO.setStrMeasure2("1/2 oz");
+        margaritaDTO.setStrMeasure3("1 oz");
     }
 
     @Test
     @DisplayName("Cocktail created and details correct.")
     void testSaveFavouriteCocktail_whenCocktailDetailsProvided_returnCocktailObjectAndDetails() throws FavouriteCocktailServiceException {
 //        Arrange & Act
-        CocktailDTO cocktailFromService = favouriteCocktailService.saveFavouriteCocktail(cocktailDTO);
+        CocktailDTO cocktailFromService = favouriteCocktailService.saveFavouriteCocktail(mojitoDTO);
 
 //        Assert
         assertNotNull(cocktailFromService, "returned CocktailDTO should not be null");
-        assertEquals(cocktailDTO.getIdDrink(), cocktailFromService.getIdDrink(), "Returned CocktailDTO should have the idDrink: 999.");
-        assertEquals(cocktailDTO.getStrDrink(), cocktailFromService.getStrDrink(), "Returned CocktailDTO should have the name: Mocktail.");
+        assertEquals(mojitoDTO.getIdDrink(), cocktailFromService.getIdDrink(), "Returned CocktailDTO should have the idDrink: 999.");
+        assertEquals(mojitoDTO.getStrDrink(), cocktailFromService.getStrDrink(), "Returned CocktailDTO should have the name: Mocktail.");
         assertTrue(cocktailFromService.isFavourite(), "Returned CocktailDTO should have isFavourite set to true");
-        assertEquals(cocktailDTO.getStrIBA(), cocktailFromService.getStrIBA(), "Returned CocktailDTO should have the strIBA: Contemporary Classics");
+        assertEquals(mojitoDTO.getStrIBA(), cocktailFromService.getStrIBA(), "Returned CocktailDTO should have the strIBA: Contemporary Classics");
     }
 
 
@@ -68,10 +84,10 @@ public class FavouriteCocktailServiceTest {
     @DisplayName("saveFavouriteCocktail() throws exception if idDrink exists in repo already.")
     void testSaveFavouriteCocktail_whenExistingCocktailIdProvided_throwException() {
 //        Arrange
-        when(favouriteCocktailRepository.existsByIdDrink(cocktailDTO.getIdDrink())).thenReturn(true);
+        when(favouriteCocktailRepository.existsByIdDrink(mojitoDTO.getIdDrink())).thenReturn(true);
 
 //        Act & Assert
-        assertThrows(FavouriteCocktailServiceException.class, () -> favouriteCocktailService.saveFavouriteCocktail(cocktailDTO), "saveFavouriteCocktail should throw exception");
+        assertThrows(FavouriteCocktailServiceException.class, () -> favouriteCocktailService.saveFavouriteCocktail(mojitoDTO), "saveFavouriteCocktail should throw exception");
         verify(favouriteCocktailRepository, never()).save(any(CocktailEntity.class));
     }
 
@@ -79,26 +95,11 @@ public class FavouriteCocktailServiceTest {
     @DisplayName("Returns a list of favourite cocktails.")
     void testFindAllFavouriteCocktails_whenGivenCocktailList_returnFavouriteCocktailList() {
 //        Arrange
-        CocktailDTO cocktailDTO1 = new CocktailDTO();
-        cocktailDTO1.setIdDrink(11007);
-        cocktailDTO1.setStrDrink("Margarita");
-        cocktailDTO1.setFavourite(false);
-        cocktailDTO1.setStrIBA("Contemporary Classics");
-        cocktailDTO1.setStrGlass("Cocktail glass");
-        cocktailDTO1.setStrInstructions("Rub the rim of the glass with the lime slice to make the salt stick to it. Take care to moisten only the outer rim and sprinkle the salt on it. The salt should present to the lips of the imbiber and never mix into the cocktail. Shake the other ingredients with ice, then carefully pour into the glass.");
-        cocktailDTO1.setStrDrinkThumb("https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg");
-        cocktailDTO1.setStrIngredient1("Tequila");
-        cocktailDTO1.setStrIngredient2("Triple sec");
-        cocktailDTO1.setStrIngredient3("Lime juice");
-        cocktailDTO1.setStrMeasure1("1 1/2 oz");
-        cocktailDTO1.setStrMeasure2("1/2 oz");
-        cocktailDTO1.setStrMeasure3("1 oz");
-
         ModelMapper modelMapper = new ModelMapper();
-        CocktailEntity savedCocktail = modelMapper.map(cocktailDTO, CocktailEntity.class);
-        CocktailEntity savedCocktail1 = modelMapper.map(cocktailDTO1, CocktailEntity.class);
+        CocktailEntity mojitoEntity = modelMapper.map(mojitoDTO, CocktailEntity.class);
+        CocktailEntity margaritaEntity = modelMapper.map(margaritaDTO, CocktailEntity.class);
 
-        List<CocktailEntity> cocktailEntitiesList = Arrays.asList(savedCocktail, savedCocktail1);
+        List<CocktailEntity> cocktailEntitiesList = Arrays.asList(mojitoEntity, margaritaEntity);
 
         when(favouriteCocktailRepository.findAll()).thenReturn(cocktailEntitiesList);
 
@@ -107,9 +108,11 @@ public class FavouriteCocktailServiceTest {
 
 //        Assert
         assertEquals(2, cocktailsFromService.size(), "cocktailsFromService should have a size of 2.");
-        assertEquals(cocktailDTO.getIdDrink(), cocktailsFromService.get(0).getIdDrink(), "cocktailDTO should have the idDrink: 11000");
-        assertEquals(cocktailDTO.getStrDrink(), cocktailsFromService.get(0).getStrDrink(), "cocktailDTO should have the strDrink: Mojito");
-        assertEquals(cocktailDTO1.getIdDrink(), cocktailsFromService.get(1).getIdDrink(), "cocktailDTO1 should have the idDrink: 11007");
-        assertEquals(cocktailDTO1.getStrDrink(), cocktailsFromService.get(1).getStrDrink(), "cocktailDTO1 should have the strDrink: Margarita");
+        assertEquals(mojitoDTO.getIdDrink(), cocktailsFromService.get(0).getIdDrink(), "cocktailDTO should have the idDrink: 11000");
+        assertEquals(mojitoDTO.getStrDrink(), cocktailsFromService.get(0).getStrDrink(), "cocktailDTO should have the strDrink: Mojito");
+        assertEquals(margaritaDTO.getIdDrink(), cocktailsFromService.get(1).getIdDrink(), "cocktailDTO1 should have the idDrink: 11007");
+        assertEquals(margaritaDTO.getStrDrink(), cocktailsFromService.get(1).getStrDrink(), "cocktailDTO1 should have the strDrink: Margarita");
+
+        verify(favouriteCocktailRepository, never()).save(any(CocktailEntity.class));
     }
 }
