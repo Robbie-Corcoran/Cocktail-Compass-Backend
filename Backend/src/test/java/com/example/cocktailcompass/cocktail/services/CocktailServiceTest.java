@@ -57,7 +57,7 @@ class CocktailServiceTest {
         List<CocktailDTO> cocktails = cocktailService.searchCocktailsByName("mojito");
 
         // Assert
-        assertEquals(mojitoDTO.getStrDrink(), cocktails.get(0).getStrDrink());
+        assertEquals(mojitoDTO.getStrDrink(), cocktails.get(0).getStrDrink(), "Should return correct cocktail name.");
     }
 
     @Test
@@ -70,7 +70,7 @@ class CocktailServiceTest {
         List<CocktailDTO> cocktails = cocktailService.searchCocktailsByName("lola_sour");
 
         // Assert
-        assertTrue(cocktails.isEmpty());
+        assertTrue(cocktails.isEmpty(), "Response should be an empty list");
     }
 
     @Test
@@ -86,7 +86,7 @@ class CocktailServiceTest {
         List<CocktailDTO> cocktails = cocktailService.searchCocktailsByIngredient("dark_rum");
 
 //        Assert
-        assertEquals(mojitoDTO.getStrDrink(), cocktails.get(0).getStrDrink());
+        assertEquals(mojitoDTO.getStrDrink(), cocktails.get(0).getStrDrink(), "Should return correct cocktail name.");
     }
 
     @Test
@@ -99,7 +99,7 @@ class CocktailServiceTest {
         List<CocktailDTO> cocktails = cocktailService.searchCocktailsByIngredient("pixie_dust");
 
         // Assert
-        assertTrue(cocktails.isEmpty());
+        assertTrue(cocktails.isEmpty(), "Response should be an empty list");
     }
 
     @Test
