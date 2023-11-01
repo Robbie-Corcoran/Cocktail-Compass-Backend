@@ -40,9 +40,9 @@ public class FavouriteCocktailController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFavouriteCocktail(@PathVariable Integer idDrink) {
+    public ResponseEntity<String> deleteFavouriteCocktail(@PathVariable Integer idDrink) {
         favouriteCocktailService.deleteFavouriteCocktail(idDrink);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<String>("Favourite successfully deleted", HttpStatus.OK);
     }
 
 }

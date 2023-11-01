@@ -5,12 +5,14 @@ import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailServiceImpl;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
@@ -31,7 +33,9 @@ public class FavouriteCocktailServiceTest {
     FavouriteCocktailServiceImpl favouriteCocktailService;
 
     CocktailDTO mojitoDTO;
+    CocktailEntity mojitoEntity;
     CocktailDTO margaritaDTO;
+    CocktailEntity margaritaEntity;
 
     @BeforeEach
     void setup() {
@@ -64,6 +68,10 @@ public class FavouriteCocktailServiceTest {
         margaritaDTO.setStrMeasure1("1 1/2 oz");
         margaritaDTO.setStrMeasure2("1/2 oz");
         margaritaDTO.setStrMeasure3("1 oz");
+
+        ModelMapper modelMapper = new ModelMapper();
+        mojitoEntity = modelMapper.map(mojitoDTO, CocktailEntity.class);
+        margaritaEntity = modelMapper.map(margaritaDTO, CocktailEntity.class);
     }
 
     @Test
@@ -96,10 +104,6 @@ public class FavouriteCocktailServiceTest {
     @DisplayName("Returns a list of favourite cocktails.")
     void testFindAllFavouriteCocktails_whenGivenCocktailList_returnFavouriteCocktailList() throws FavouriteCocktailException {
 //        Arrange
-        ModelMapper modelMapper = new ModelMapper();
-        CocktailEntity mojitoEntity = modelMapper.map(mojitoDTO, CocktailEntity.class);
-        CocktailEntity margaritaEntity = modelMapper.map(margaritaDTO, CocktailEntity.class);
-
         List<CocktailEntity> cocktailEntitiesList = Arrays.asList(mojitoEntity, margaritaEntity);
 
         when(favouriteCocktailRepository.findAll()).thenReturn(cocktailEntitiesList);
@@ -125,5 +129,15 @@ public class FavouriteCocktailServiceTest {
 
 //        Act & Assert
         assertThrows(FavouriteCocktailException.class, () -> favouriteCocktailService.findAllFavouriteCocktails());
+    }
+
+    @Test
+    @DisplayName("deleteFavouriteCocktail() successfully deletes cocktail from repo.")
+    void testDeleteFavouriteCocktail_whenGivenValidIdDrink_thenNothing() {
+//        Arrange & Act
+        favouriteCocktailService.deleteFavouriteCocktail(mojitoDTO.getIdDrink());
+
+//        Assert
+        verify(favouriteCocktailRepository).deleteById(mojitoDTO.getIdDrink());
     }
 }
