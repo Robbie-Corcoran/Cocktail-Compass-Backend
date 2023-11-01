@@ -61,7 +61,7 @@ class CocktailServiceTest {
     }
 
     @Test
-    @DisplayName("searchCocktailsByName() returns a list of cocktails when API returns a response.")
+    @DisplayName("searchCocktailsByName() returns an empty list of cocktails when API returns a response.")
     void testSearchCocktailsByName_whenApiReturnsEmptyResponse_returnEmptyCocktailList() {
         // Arrange
         when(restTemplate.getForObject(BASE_URL + "search.php?s=" + "lola_sour", CocktailListResponse.class)).thenReturn(emptyCocktailListResponse);
@@ -87,6 +87,19 @@ class CocktailServiceTest {
 
 //        Assert
         assertEquals(mojitoDTO.getStrDrink(), cocktails.get(0).getStrDrink());
+    }
+
+    @Test
+    @DisplayName("searchCocktailsByName() returns a list of cocktails when API returns a response.")
+    void testSearchCocktailsByIngredient_whenApiReturnsEmptyResponse_returnEmptyCocktailList() {
+        // Arrange
+        when(restTemplate.getForObject(BASE_URL + "filter.php?i=" + "pixie_dust", CocktailListResponse.class)).thenReturn(emptyCocktailListResponse);
+
+        // Act
+        List<CocktailDTO> cocktails = cocktailService.searchCocktailsByIngredient("pixie_dust");
+
+        // Assert
+        assertTrue(cocktails.isEmpty());
     }
 
     @Test
