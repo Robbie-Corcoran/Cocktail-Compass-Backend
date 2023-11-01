@@ -1,6 +1,6 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
-import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceException;
+import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailException;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailServiceImpl;
@@ -25,12 +25,12 @@ public class FavouriteCocktailController {
     }
 
     @PostMapping
-    public ResponseEntity<CocktailDTO> saveFavouriteCocktail(@RequestBody CocktailDTO favouriteCocktail) throws FavouriteCocktailServiceException {
+    public ResponseEntity<CocktailDTO> saveFavouriteCocktail(@RequestBody CocktailDTO favouriteCocktail) throws FavouriteCocktailException {
         return new ResponseEntity<>(favouriteCocktailService.saveFavouriteCocktail(favouriteCocktail), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<CocktailDTO>> getAllFavouriteCocktails() {
+    public ResponseEntity<List<CocktailDTO>> getAllFavouriteCocktails() throws FavouriteCocktailException {
         List<CocktailDTO> favouriteCocktails = favouriteCocktailService.findAllFavouriteCocktails();
 
         if (favouriteCocktails.isEmpty()) {
@@ -40,9 +40,9 @@ public class FavouriteCocktailController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFavouriteCocktail(@PathVariable Integer idDrink) {
+    public ResponseEntity<String> deleteFavouriteCocktail(@PathVariable Integer idDrink) {
         favouriteCocktailService.deleteFavouriteCocktail(idDrink);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<String>("Favourite successfully deleted", HttpStatus.OK);
     }
 
 }
