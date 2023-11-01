@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -69,6 +69,24 @@ class CocktailServiceTest {
 
 //        Assert
         assertEquals(mojitoDTO.getStrDrink(), cocktails.get(0).getStrDrink());
+    }
+
+    @Test
+    @DisplayName("randomCocktail() returns a list of cocktails when API returns a response.")
+    void testRandomCocktail_whenApiReturnsResponse_returnCocktailList() {
+//        Arrange
+        CocktailListResponse cocktailListResponse = new CocktailListResponse();
+        cocktailListResponse.setCocktails(Collections.singletonList(mojitoDTO));
+
+        when(restTemplate.getForObject(BASE_URL + "random.php", CocktailListResponse.class)).thenReturn(cocktailListResponse);
+
+//        Act
+        List<CocktailDTO> cocktails = cocktailService.randomCocktail();
+
+//        Assert
+        assertNotNull(cocktails, "Returned cocktail should not be null");
+        assertEquals(1, cocktails.size(), "Returned cocktailList should have a size of one.");
+        assertNotEquals(2, cocktails.size(), "Returned cocktailList should have a max-size of one.");
     }
 }
 
