@@ -10,6 +10,8 @@ public interface FavouriteCocktailRepository extends JpaRepository<CocktailEntit
 
     CocktailEntity save(CocktailEntity cocktailEntity);
 
+    List<CocktailEntity> saveAll(List<CocktailEntity> cocktailEntities);
+
     List<CocktailEntity> findAll();
 
     void deleteById(Integer idDrink);

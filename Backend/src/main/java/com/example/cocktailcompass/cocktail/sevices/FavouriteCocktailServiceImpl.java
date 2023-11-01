@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("favouriteCocktailService")
@@ -38,6 +39,7 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
         if (favouriteCocktailEntity == null) {
             throw new FavouriteCocktailServiceException("Cocktail to be saved is null.");
         }
+
         favouriteCocktailRepository.save(favouriteCocktailEntity);
         return modelMapper.map(favouriteCocktailEntity, CocktailDTO.class);
     }
@@ -45,7 +47,15 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
     @Override
     public List<CocktailDTO> findAllFavouriteCocktails() {
         ModelMapper modelMapper = new ModelMapper();
-        return (List<CocktailDTO>) modelMapper.map(favouriteCocktailRepository.findAll(), CocktailDTO.class);
+        List<CocktailEntity> cocktailEntities = favouriteCocktailRepository.findAll();
+        List<CocktailDTO> cocktailDTOs = new ArrayList<>();
+
+        for (CocktailEntity cocktailEntity : cocktailEntities) {
+            CocktailDTO cocktailDTO = modelMapper.map(cocktailEntity, CocktailDTO.class);
+            cocktailDTOs.add(cocktailDTO);
+        }
+
+        return cocktailDTOs;
     }
 
     @Override
