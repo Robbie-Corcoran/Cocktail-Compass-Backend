@@ -22,20 +22,17 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class CocktailServiceTest {
 
-    @Mock
-    private RestTemplate restTemplate;
-
-    @InjectMocks
-    private CocktailService cocktailService;
-
+    private final String BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/";
     CocktailDTO mojitoDTO;
     CocktailListResponse cocktailListResponse;
     CocktailListResponse emptyCocktailListResponse;
-
-    private final String BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/";
+    @Mock
+    private RestTemplate restTemplate;
+    @InjectMocks
+    private CocktailService cocktailService;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         mojitoDTO = new CocktailDTO();
         mojitoDTO.setIdDrink(11000);
         mojitoDTO.setStrDrink("Mojito");

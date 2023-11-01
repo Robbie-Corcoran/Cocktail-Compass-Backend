@@ -27,6 +27,7 @@ public class CocktailService {
         String apiUrl = BASE_URL + "search.php?s=" + searchQuery;
         return fetchCocktailList(apiUrl);
     }
+
     public List<CocktailDTO> searchCocktailsByIngredient(String searchQuery) {
         String apiIngredientUrl = BASE_URL + "filter.php?i=" + searchQuery;
         return fetchCocktailList(apiIngredientUrl);
