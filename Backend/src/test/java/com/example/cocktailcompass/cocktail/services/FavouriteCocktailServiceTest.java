@@ -1,6 +1,6 @@
 package com.example.cocktailcompass.cocktail.services;
 
-import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailServiceException;
+import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailException;
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -67,7 +68,7 @@ public class FavouriteCocktailServiceTest {
 
     @Test
     @DisplayName("Cocktail created and details correct.")
-    void testSaveFavouriteCocktail_whenCocktailDetailsProvided_returnCocktailObjectAndDetails() throws FavouriteCocktailServiceException {
+    void testSaveFavouriteCocktail_whenCocktailDetailsProvided_returnCocktailObjectAndDetails() throws FavouriteCocktailException {
 //        Arrange & Act
         CocktailDTO cocktailFromService = favouriteCocktailService.saveFavouriteCocktail(mojitoDTO);
 
@@ -87,13 +88,13 @@ public class FavouriteCocktailServiceTest {
         when(favouriteCocktailRepository.existsByIdDrink(mojitoDTO.getIdDrink())).thenReturn(true);
 
 //        Act & Assert
-        assertThrows(FavouriteCocktailServiceException.class, () -> favouriteCocktailService.saveFavouriteCocktail(mojitoDTO), "saveFavouriteCocktail should throw exception");
+        assertThrows(FavouriteCocktailException.class, () -> favouriteCocktailService.saveFavouriteCocktail(mojitoDTO), "saveFavouriteCocktail should throw exception");
         verify(favouriteCocktailRepository, never()).save(any(CocktailEntity.class));
     }
 
     @Test
     @DisplayName("Returns a list of favourite cocktails.")
-    void testFindAllFavouriteCocktails_whenGivenCocktailList_returnFavouriteCocktailList() {
+    void testFindAllFavouriteCocktails_whenGivenCocktailList_returnFavouriteCocktailList() throws FavouriteCocktailException {
 //        Arrange
         ModelMapper modelMapper = new ModelMapper();
         CocktailEntity mojitoEntity = modelMapper.map(mojitoDTO, CocktailEntity.class);
@@ -114,5 +115,15 @@ public class FavouriteCocktailServiceTest {
         assertEquals(margaritaDTO.getStrDrink(), cocktailsFromService.get(1).getStrDrink(), "cocktailDTO1 should have the strDrink: Margarita");
 
         verify(favouriteCocktailRepository, never()).save(any(CocktailEntity.class));
+    }
+
+    @Test
+    @DisplayName("findAllFavouriteCocktails() throws exception if no cocktails exist in repo.")
+    void testFindAllFavouriteCocktails_whenListIsEmpty_throwsException() {
+//        Arrange
+        when(favouriteCocktailRepository.findAll()).thenReturn(Collections.emptyList());
+
+//        Act & Assert
+        assertThrows(FavouriteCocktailException.class, () -> favouriteCocktailService.findAllFavouriteCocktails());
     }
 }
