@@ -6,7 +6,6 @@ import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNullApi;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
         ModelMapper modelMapper = new ModelMapper();
         List<CocktailEntity> cocktailEntities = favouriteCocktailRepository.findAll();
 
-        if (cocktailEntities.isEmpty()){
+        if (cocktailEntities.isEmpty()) {
             throw new FavouriteCocktailException("FavouriteCocktails list returned empty");
         }
 
