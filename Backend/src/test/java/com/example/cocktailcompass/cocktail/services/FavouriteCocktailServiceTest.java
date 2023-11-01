@@ -99,6 +99,18 @@ public class FavouriteCocktailServiceTest {
     }
 
     @Test
+    @DisplayName("saveFavouriteCocktail() throws exception if StrDrink is null or empty.")
+    void testSaveFavouriteCocktail_whenStrDrinkIsNullOrEmpty_throwException() {
+//        Arrange
+        mojitoDTO.setStrDrink("");
+        margaritaDTO.setStrDrink(null);
+
+//        Act & Assert
+        assertThrows(FavouriteCocktailException.class, () -> favouriteCocktailService.saveFavouriteCocktail(mojitoDTO), "saveFavouriteCocktail should throw exception for empty name");
+        assertThrows(FavouriteCocktailException.class, () -> favouriteCocktailService.saveFavouriteCocktail(margaritaDTO), "saveFavouriteCocktail should throw exception for null name");
+    }
+
+    @Test
     @DisplayName("Returns a list of favourite cocktails.")
     void testFindAllFavouriteCocktails_whenGivenCocktailList_returnFavouriteCocktailList() throws FavouriteCocktailException {
 //        Arrange

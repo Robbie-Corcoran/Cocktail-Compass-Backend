@@ -37,10 +37,6 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
         cocktailDTO.setFavourite(true);
         CocktailEntity favouriteCocktailEntity = modelMapper.map(cocktailDTO, CocktailEntity.class);
 
-        if (favouriteCocktailEntity == null) {
-            throw new FavouriteCocktailException("Cocktail to be saved is null.");
-        }
-
         favouriteCocktailRepository.save(favouriteCocktailEntity);
         return modelMapper.map(favouriteCocktailEntity, CocktailDTO.class);
     }
