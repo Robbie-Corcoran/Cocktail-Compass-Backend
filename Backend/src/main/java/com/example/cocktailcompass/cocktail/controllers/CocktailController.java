@@ -1,6 +1,7 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
+import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,8 @@ public class CocktailController {
     }
 
     @GetMapping("/{searchQuery}")
-    public ResponseEntity<List<CocktailEntity>> searchCocktails(@PathVariable String searchQuery) {
-        List<CocktailEntity> cocktails = service.searchCocktailsByName(searchQuery);
+    public ResponseEntity<List<CocktailDTO>> searchCocktails(@PathVariable String searchQuery) {
+        List<CocktailDTO> cocktails = service.searchCocktailsByName(searchQuery);
         if (cocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -32,8 +33,8 @@ public class CocktailController {
     }
 
     @GetMapping("/ingredients/{searchQuery}")
-    public ResponseEntity<List<CocktailEntity>> searchCocktailsByIngredient(@PathVariable String searchQuery) {
-        List<CocktailEntity> cocktails = service.searchCocktailsByIngredient(searchQuery);
+    public ResponseEntity<List<CocktailDTO>> searchCocktailsByIngredient(@PathVariable String searchQuery) {
+        List<CocktailDTO> cocktails = service.searchCocktailsByIngredient(searchQuery);
         if (cocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -41,8 +42,8 @@ public class CocktailController {
     }
 
     @GetMapping("/random")
-    public ResponseEntity<List<CocktailEntity>> randomCocktail() {
-        List<CocktailEntity> cocktail = service.randomCocktail();
+    public ResponseEntity<List<CocktailDTO>> randomCocktail() {
+        List<CocktailDTO> cocktail = service.randomCocktail();
         if (cocktail == null) {
             return ResponseEntity.noContent().build();
         }
