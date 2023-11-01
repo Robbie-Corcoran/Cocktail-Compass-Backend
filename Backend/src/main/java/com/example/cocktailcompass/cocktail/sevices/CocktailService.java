@@ -26,7 +26,7 @@ public class CocktailService {
         String apiUrl = BASE_URL + "search.php?s=" + searchQuery;
         CocktailListResponse cocktailListResponse = restTemplate.getForObject(apiUrl, CocktailListResponse.class);
 
-        if (cocktailListResponse != null) {
+        if (cocktailListResponse != null || !cocktailListResponse.getCocktails().isEmpty()) {
             return cocktailListResponse.getCocktails();
         } else {
             return Collections.emptyList();
@@ -37,7 +37,7 @@ public class CocktailService {
         String apiIngredientUrl = BASE_URL + "filter.php?i=" + searchQuery;
         CocktailListResponse cocktailListResponse = restTemplate.getForObject(apiIngredientUrl, CocktailListResponse.class);
 
-        if (cocktailListResponse != null) {
+        if (cocktailListResponse != null || !cocktailListResponse.getCocktails().isEmpty()) {
             return cocktailListResponse.getCocktails();
         } else {
             return Collections.emptyList();

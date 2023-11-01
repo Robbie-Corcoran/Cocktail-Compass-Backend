@@ -30,6 +30,7 @@ class CocktailServiceTest {
 
     CocktailDTO mojitoDTO;
     CocktailListResponse cocktailListResponse;
+    CocktailListResponse emptyCocktailListResponse;
 
     private final String BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/";
 
@@ -41,6 +42,9 @@ class CocktailServiceTest {
 
         cocktailListResponse = new CocktailListResponse();
         cocktailListResponse.setCocktails(Collections.singletonList(mojitoDTO));
+
+        emptyCocktailListResponse = new CocktailListResponse();
+        emptyCocktailListResponse.setCocktails(Collections.emptyList());
     }
 
     @Test
@@ -54,6 +58,19 @@ class CocktailServiceTest {
 
         // Assert
         assertEquals(mojitoDTO.getStrDrink(), cocktails.get(0).getStrDrink());
+    }
+
+    @Test
+    @DisplayName("searchCocktailsByName() returns a list of cocktails when API returns a response.")
+    void testSearchCocktailsByName_whenApiReturnsEmptyResponse_returnEmptyCocktailList() {
+        // Arrange
+        when(restTemplate.getForObject(BASE_URL + "search.php?s=" + "lola_sour", CocktailListResponse.class)).thenReturn(emptyCocktailListResponse);
+
+        // Act
+        List<CocktailDTO> cocktails = cocktailService.searchCocktailsByName("lola_sour");
+
+        // Assert
+        assertTrue(cocktails.isEmpty());
     }
 
     @Test
