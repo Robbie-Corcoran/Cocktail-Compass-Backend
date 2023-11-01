@@ -39,10 +39,9 @@ public class FavouriteCocktailController {
         return new ResponseEntity<>(favouriteCocktails, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteFavouriteCocktail(@PathVariable Integer idDrink) {
+    @DeleteMapping("/{idDrink}")
+    public ResponseEntity<String> deleteFavouriteCocktail(@PathVariable int idDrink) throws FavouriteCocktailException {
         favouriteCocktailService.deleteFavouriteCocktail(idDrink);
-        return new ResponseEntity<String>("Favourite successfully deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Favourite successfully deleted", HttpStatus.OK);
     }
-
 }

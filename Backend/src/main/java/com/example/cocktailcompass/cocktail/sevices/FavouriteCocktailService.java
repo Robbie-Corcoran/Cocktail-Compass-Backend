@@ -11,6 +11,6 @@ public interface FavouriteCocktailService {
 
     List<CocktailDTO> findAllFavouriteCocktails() throws FavouriteCocktailException;
 
-    void deleteFavouriteCocktail(Integer idDrink);
+    void deleteFavouriteCocktail(Integer idDrink) throws FavouriteCocktailException;
 
 }
