@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CocktailService {
@@ -38,10 +39,8 @@ public class CocktailService {
 
     private List<CocktailDTO> fetchCocktailList(String apiUrl) {
         CocktailListResponse cocktailListResponse = restTemplate.getForObject(apiUrl, CocktailListResponse.class);
-        if (cocktailListResponse == null || cocktailListResponse.getCocktails().isEmpty()) {
-            return Collections.emptyList();
-        } else {
-            return cocktailListResponse.getCocktails();
-        }
+        return Optional.ofNullable(cocktailListResponse)
+                .map(CocktailListResponse::getCocktails)
+                .orElse(Collections.emptyList());
     }
 }
