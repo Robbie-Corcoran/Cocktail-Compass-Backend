@@ -9,9 +9,9 @@ import java.util.List;
 public class CocktailResponse {
 
     @JsonProperty("drinks")
-    private List<Cocktail> cocktails;
+    private List<CocktailEntity> oldCocktails;
 
-    public List<Cocktail> getCocktails() {
-        return cocktails;
+    public List<CocktailEntity> getCocktails() {
+        return oldCocktails;
     }
 }
