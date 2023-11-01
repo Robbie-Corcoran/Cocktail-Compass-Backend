@@ -4,6 +4,7 @@ import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailExceptio
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailServiceImpl;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,10 +40,9 @@ public class FavouriteCocktailController {
         return new ResponseEntity<>(favouriteCocktails, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteFavouriteCocktail(@PathVariable Integer idDrink) {
+    @DeleteMapping("/{idDrink}")
+    public ResponseEntity<String> deleteFavouriteCocktail(@PathVariable int idDrink) throws FavouriteCocktailException {
         favouriteCocktailService.deleteFavouriteCocktail(idDrink);
-        return new ResponseEntity<String>("Favourite successfully deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Favourite successfully deleted", HttpStatus.OK);
     }
-
 }

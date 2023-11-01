@@ -143,7 +143,7 @@ public class FavouriteCocktailServiceTest {
 
     @Test
     @DisplayName("deleteFavouriteCocktail() successfully deletes cocktail from repo.")
-    void testDeleteFavouriteCocktail_whenGivenValidIdDrink_thenNothing() {
+    void testDeleteFavouriteCocktail_whenGivenValidIdDrink_thenNothing() throws FavouriteCocktailException {
 //        Arrange & Act
         favouriteCocktailService.deleteFavouriteCocktail(mojitoDTO.getIdDrink());
 
