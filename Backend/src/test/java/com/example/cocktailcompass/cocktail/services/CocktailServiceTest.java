@@ -29,6 +29,7 @@ class CocktailServiceTest {
     private CocktailService cocktailService;
 
     CocktailDTO mojitoDTO;
+    CocktailListResponse cocktailListResponse;
 
     private final String BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/";
 
@@ -37,15 +38,15 @@ class CocktailServiceTest {
         mojitoDTO = new CocktailDTO();
         mojitoDTO.setIdDrink(11000);
         mojitoDTO.setStrDrink("Mojito");
+
+        cocktailListResponse = new CocktailListResponse();
+        cocktailListResponse.setCocktails(Collections.singletonList(mojitoDTO));
     }
 
     @Test
     @DisplayName("searchCocktailsByName() returns a list of cocktails when API returns a response.")
     void testSearchCocktailsByName_whenApiReturnsResponse_returnCocktailList() {
         // Arrange
-        CocktailListResponse cocktailListResponse = new CocktailListResponse();
-        cocktailListResponse.setCocktails(Collections.singletonList(mojitoDTO));
-
         when(restTemplate.getForObject(BASE_URL + "search.php?s=" + "mojito", CocktailListResponse.class)).thenReturn(cocktailListResponse);
 
         // Act
