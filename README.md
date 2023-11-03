@@ -19,7 +19,7 @@ The Cocktail Compass is a web application that allows users to search for cockta
 - User login area.
 - Cocktail training section with insider tips
 - NEW cocktail page where similar and recommended cocktails can be displayed, as well as tips for making the drink.
-- Entire frontend redisgn by the amazing [EimearDesigns](https://www.eimeardesigns.com/)
+- Entire frontend redisgn by the amazing [EimearDesigns](https://www.eimeardesigns.com/).
 
 
 ## Tech Stack
@@ -33,9 +33,13 @@ The Cocktail Search App is built using the following technologies:
 - Backend:
   - Java
   - Spring Boot
+ 
+- Database:
+  - PostreSQL (via Adminer)
 
 - External API:
   - [TheCocktailDB API](https://www.thecocktaildb.com)
+
 
 ## Contributing
 Contributions are welcome! If you would like to contribute to the Cocktail Search App, please follow these steps:
@@ -53,4 +57,4 @@ This project is licensed under the MIT License.
 
 
 ### Acknowledgements
-Huge thanks to [TheCocktailDB API](https://www.thecocktaildb.com) for providing the cocktail recipe data. Please checkout their site and donate to their amazing work!
+Huge thanks to [TheCocktailDB API](https://www.thecocktaildb.com) for providing the cocktail data. Please checkout their site and donate to their amazing work!
