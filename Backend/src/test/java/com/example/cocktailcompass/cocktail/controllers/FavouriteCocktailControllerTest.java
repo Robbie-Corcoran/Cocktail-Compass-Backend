@@ -8,46 +8,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.http.ResponseEntity.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = FavouriteCocktailController.class)
 @MockBean({FavouriteCocktailServiceImpl.class})
 public class FavouriteCocktailControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
+    private final String REQUEST_BUILDER_URI = "/api/cocktails/favourites";
     @Autowired
     FavouriteCocktailService favouriteCocktailService;
-
-    private String requestBuilderURI = "/api/cocktails/favourites";
-
     CocktailDTO mojitoDTO;
     CocktailEntity mojitoEntity;
     CocktailDTO margaritaDTO;
     CocktailEntity margaritaEntity;
+    @Autowired
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setup() {
@@ -92,7 +80,7 @@ public class FavouriteCocktailControllerTest {
 //        Arrange
         when(favouriteCocktailService.saveFavouriteCocktail(any(CocktailDTO.class))).thenReturn(mojitoDTO);
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.post(requestBuilderURI)
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post(REQUEST_BUILDER_URI)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(mojitoDTO));
@@ -119,6 +107,5 @@ public class FavouriteCocktailControllerTest {
                 createdCocktail.getIdDrink(),
                 "User ID is null."
         );
-
     }
 }
