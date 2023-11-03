@@ -1,5 +1,6 @@
 package com.example.cocktailcompass.cocktail.sevices;
 
+import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailAlreadyExistsException;
 import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailException;
 import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
@@ -23,15 +24,12 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
     }
 
     @Override
-    public CocktailDTO saveFavouriteCocktail(CocktailDTO cocktailDTO) throws FavouriteCocktailException {
+    public CocktailDTO saveFavouriteCocktail(CocktailDTO cocktailDTO) throws FavouriteCocktailAlreadyExistsException {
 
         ModelMapper modelMapper = new ModelMapper();
 
         if (favouriteCocktailRepository.existsByIdDrink(cocktailDTO.getIdDrink())) {
-            throw new FavouriteCocktailException("Cocktail already favourite.");
-        }
-        if (cocktailDTO.getStrDrink() == null || cocktailDTO.getStrDrink().isEmpty()) {
-            throw new FavouriteCocktailException("Drink name cannot be null or empty.");
+            throw new FavouriteCocktailAlreadyExistsException("Cocktail already favourite.");
         }
 
         cocktailDTO.setFavourite(true);
