@@ -131,12 +131,17 @@ public class FavouriteCocktailServiceTest {
     }
 
     @Test
-    @DisplayName("deleteFavouriteCocktail() successfully deletes cocktail from repo.")
-    void testDeleteFavouriteCocktail_whenGivenValidIdDrink_thenNothing() {
-//        Arrange & Act
-        favouriteCocktailService.deleteFavouriteCocktail(mojitoDTO.getIdDrink());
+    @DisplayName("deleteFavouriteCocktail() successfully deletes cocktail from repo when idDrink exists.")
+    void testDeleteFavouriteCocktail_whenIdDrinkExists_thenSuccess() {
+        // Arrange
+        Integer idDrink = mojitoDTO.getIdDrink();
+        when(favouriteCocktailRepository.existsByIdDrink(idDrink)).thenReturn(true);
 
-//        Assert
-        verify(favouriteCocktailRepository).deleteById(mojitoDTO.getIdDrink());
+        // Act
+        favouriteCocktailService.deleteFavouriteCocktail(idDrink);
+
+        // Assert
+        verify(favouriteCocktailRepository).deleteById(idDrink);
     }
+
 }
