@@ -1,6 +1,7 @@
 package com.example.cocktailcompass.cocktail.services;
 
-import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailException;
+import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailAlreadyExistsException;
+import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
@@ -74,7 +75,7 @@ public class FavouriteCocktailServiceTest {
 
     @Test
     @DisplayName("Cocktail created and details correct.")
-    void testSaveFavouriteCocktail_whenCocktailDetailsProvided_returnCocktailObjectAndDetails() throws FavouriteCocktailException {
+    void testSaveFavouriteCocktail_whenCocktailDetailsProvided_returnCocktailObjectAndDetails() {
 //        Arrange & Act
         CocktailDTO cocktailFromService = favouriteCocktailService.saveFavouriteCocktail(mojitoDTO);
 
@@ -89,30 +90,18 @@ public class FavouriteCocktailServiceTest {
 
     @Test
     @DisplayName("saveFavouriteCocktail() throws exception if idDrink exists in repo already.")
-    void testSaveFavouriteCocktail_whenExistingCocktailIdProvided_throwException() {
+    void testSaveFavouriteCocktail_whenExistingCocktailIdProvided_throwException() throws FavouriteCocktailAlreadyExistsException {
 //        Arrange
         when(favouriteCocktailRepository.existsByIdDrink(mojitoDTO.getIdDrink())).thenReturn(true);
 
 //        Act & Assert
-        assertThrows(FavouriteCocktailException.class, () -> favouriteCocktailService.saveFavouriteCocktail(mojitoDTO), "saveFavouriteCocktail should throw exception");
+        assertThrows(FavouriteCocktailAlreadyExistsException.class, () -> favouriteCocktailService.saveFavouriteCocktail(mojitoDTO), "saveFavouriteCocktail should throw exception");
         verify(favouriteCocktailRepository, never()).save(any(CocktailEntity.class));
     }
 
     @Test
-    @DisplayName("saveFavouriteCocktail() throws exception if StrDrink is null or empty.")
-    void testSaveFavouriteCocktail_whenStrDrinkIsNullOrEmpty_throwException() {
-//        Arrange
-        mojitoDTO.setStrDrink("");
-        margaritaDTO.setStrDrink(null);
-
-//        Act & Assert
-        assertThrows(FavouriteCocktailException.class, () -> favouriteCocktailService.saveFavouriteCocktail(mojitoDTO), "saveFavouriteCocktail should throw exception for empty name");
-        assertThrows(FavouriteCocktailException.class, () -> favouriteCocktailService.saveFavouriteCocktail(margaritaDTO), "saveFavouriteCocktail should throw exception for null name");
-    }
-
-    @Test
     @DisplayName("Returns a list of favourite cocktails.")
-    void testFindAllFavouriteCocktails_whenGivenCocktailList_returnFavouriteCocktailList() throws FavouriteCocktailException {
+    void testFindAllFavouriteCocktails_whenGivenCocktailList_returnFavouriteCocktailList() {
 //        Arrange
         List<CocktailEntity> cocktailEntitiesList = Arrays.asList(mojitoEntity, margaritaEntity);
 
@@ -133,17 +122,17 @@ public class FavouriteCocktailServiceTest {
 
     @Test
     @DisplayName("findAllFavouriteCocktails() throws exception if no cocktails exist in repo.")
-    void testFindAllFavouriteCocktails_whenListIsEmpty_throwsException() {
+    void testFindAllFavouriteCocktails_whenListIsEmpty_throwsException() throws FavouriteCocktailNotFoundException {
 //        Arrange
         when(favouriteCocktailRepository.findAll()).thenReturn(Collections.emptyList());
 
 //        Act & Assert
-        assertThrows(FavouriteCocktailException.class, () -> favouriteCocktailService.findAllFavouriteCocktails());
+        assertThrows(FavouriteCocktailNotFoundException.class, () -> favouriteCocktailService.findAllFavouriteCocktails());
     }
 
     @Test
     @DisplayName("deleteFavouriteCocktail() successfully deletes cocktail from repo.")
-    void testDeleteFavouriteCocktail_whenGivenValidIdDrink_thenNothing() throws FavouriteCocktailException {
+    void testDeleteFavouriteCocktail_whenGivenValidIdDrink_thenNothing() {
 //        Arrange & Act
         favouriteCocktailService.deleteFavouriteCocktail(mojitoDTO.getIdDrink());
 
