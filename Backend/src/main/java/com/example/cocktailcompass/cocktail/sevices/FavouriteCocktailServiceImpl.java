@@ -1,7 +1,6 @@
 package com.example.cocktailcompass.cocktail.sevices;
 
 import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailAlreadyExistsException;
-import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailException;
 import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
