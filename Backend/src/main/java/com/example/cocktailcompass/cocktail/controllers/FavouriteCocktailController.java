@@ -14,12 +14,10 @@ import java.util.List;
 @RequestMapping("/api/cocktails/favourites")
 public class FavouriteCocktailController {
 
-    CocktailService cocktailService;
     FavouriteCocktailServiceImpl favouriteCocktailService;
 
     @Autowired
-    public FavouriteCocktailController(CocktailService cocktailService, FavouriteCocktailServiceImpl favouriteCocktailService) {
-        this.cocktailService = cocktailService;
+    public FavouriteCocktailController(FavouriteCocktailServiceImpl favouriteCocktailService) {
         this.favouriteCocktailService = favouriteCocktailService;
     }
 
