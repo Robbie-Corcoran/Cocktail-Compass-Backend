@@ -1,7 +1,6 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
-import com.example.cocktailcompass.cocktail.sevices.CocktailService;
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
