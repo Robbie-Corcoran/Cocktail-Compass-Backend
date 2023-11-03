@@ -39,7 +39,7 @@ The Cocktail Search App is built using the following technologies:
 
 - External API:
   - [TheCocktailDB API](https://www.thecocktaildb.com)
-    
+
 
 ## Contributing
 Contributions are welcome! If you would like to contribute to the Cocktail Search App, please follow these steps:
