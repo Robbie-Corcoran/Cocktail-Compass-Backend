@@ -144,4 +144,17 @@ public class FavouriteCocktailServiceTest {
         verify(favouriteCocktailRepository).deleteById(idDrink);
     }
 
+    @Test
+    @DisplayName("deleteFavouriteCocktail() throws exception when idDrink does not exist in repo.")
+    void testDeleteFavouriteCocktail_whenIdDrinkDoesNotExist_throwsException() throws FavouriteCocktailNotFoundException {
+        // Arrange
+        int idDrink = mojitoDTO.getIdDrink();
+        when(favouriteCocktailRepository.existsByIdDrink(idDrink)).thenReturn(false);
+
+        // Act & Assert
+        assertThrows(FavouriteCocktailNotFoundException.class,
+                () -> favouriteCocktailService.deleteFavouriteCocktail(idDrink));
+    }
+
+
 }
