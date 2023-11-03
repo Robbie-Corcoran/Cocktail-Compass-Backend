@@ -1,6 +1,7 @@
 package com.example.cocktailcompass.cocktail.sevices;
 
 import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailException;
+import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
@@ -41,12 +42,12 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
     }
 
     @Override
-    public List<CocktailDTO> findAllFavouriteCocktails() throws FavouriteCocktailException {
+    public List<CocktailDTO> findAllFavouriteCocktails() throws FavouriteCocktailNotFoundException {
         ModelMapper modelMapper = new ModelMapper();
         List<CocktailEntity> cocktailEntities = favouriteCocktailRepository.findAll();
 
         if (cocktailEntities.isEmpty()) {
-            throw new FavouriteCocktailException("FavouriteCocktails list returned empty");
+            throw new FavouriteCocktailNotFoundException("No FavouriteCocktails found.");
         }
 
         List<CocktailDTO> cocktailDTOs = new ArrayList<>();
