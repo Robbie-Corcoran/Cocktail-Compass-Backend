@@ -59,9 +59,9 @@ public class FavouriteCocktailServiceImpl implements FavouriteCocktailService {
     }
 
     @Override
-    public void deleteFavouriteCocktail(Integer idDrink) throws FavouriteCocktailException {
+    public void deleteFavouriteCocktail(Integer idDrink) throws FavouriteCocktailNotFoundException {
         if (!favouriteCocktailRepository.existsByIdDrink(idDrink)) {
-            throw new FavouriteCocktailException("idDrink not found in Favourites.");
+            throw new FavouriteCocktailNotFoundException("idDrink not found in Favourites.");
         }
         favouriteCocktailRepository.deleteById(idDrink);
     }
