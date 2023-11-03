@@ -1,60 +1,47 @@
 package com.example.cocktailcompass.cocktail.sevices;
 
-import com.example.cocktailcompass.cocktail.models.CocktailEntity;
-import com.example.cocktailcompass.cocktail.models.CocktailResponse;
-import com.example.cocktailcompass.cocktail.repositories.FavouriteCocktailRepository;
+import com.example.cocktailcompass.cocktail.models.CocktailListResponse;
+import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CocktailService {
 
-    private final FavouriteCocktailRepository favRepo;
     private final RestTemplate restTemplate;
 
     private final String BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/";
 
 
     @Autowired
-    public CocktailService(RestTemplate restTemplate, FavouriteCocktailRepository favRepo) {
-        this.favRepo = favRepo;
+    public CocktailService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public List<CocktailEntity> searchCocktailsByName(String searchQuery) {
+    public List<CocktailDTO> searchCocktailsByName(String searchQuery) {
         String apiUrl = BASE_URL + "search.php?s=" + searchQuery;
-        CocktailResponse cocktailResponse = restTemplate.getForObject(apiUrl, CocktailResponse.class);
-
-        if (cocktailResponse != null) {
-            return cocktailResponse.getCocktails();
-        } else {
-            return Collections.emptyList();
-        }
+        return fetchCocktailList(apiUrl);
     }
 
-    public List<CocktailEntity> searchCocktailsByIngredient(String searchQuery) {
+    public List<CocktailDTO> searchCocktailsByIngredient(String searchQuery) {
         String apiIngredientUrl = BASE_URL + "filter.php?i=" + searchQuery;
-        CocktailResponse cocktailResponse = restTemplate.getForObject(apiIngredientUrl, CocktailResponse.class);
-
-        if (cocktailResponse != null) {
-            return cocktailResponse.getCocktails();
-        } else {
-            return Collections.emptyList();
-        }
+        return fetchCocktailList(apiIngredientUrl);
     }
 
-    public List<CocktailEntity> randomCocktail() {
+    public List<CocktailDTO> randomCocktail() {
         String apiRandomUrl = BASE_URL + "random.php";
-        CocktailResponse cocktailResponse = restTemplate.getForObject(apiRandomUrl, CocktailResponse.class);
+        return fetchCocktailList(apiRandomUrl);
+    }
 
-        if (cocktailResponse != null) {
-            return cocktailResponse.getCocktails();
-        } else {
-            return Collections.emptyList();
-        }
+    private List<CocktailDTO> fetchCocktailList(String apiUrl) {
+        CocktailListResponse cocktailListResponse = restTemplate.getForObject(apiUrl, CocktailListResponse.class);
+        return Optional.ofNullable(cocktailListResponse)
+                .map(CocktailListResponse::getCocktails)
+                .orElse(Collections.emptyList());
     }
 }
