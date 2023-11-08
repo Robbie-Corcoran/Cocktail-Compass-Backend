@@ -18,6 +18,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,12 +33,14 @@ public class FavouriteCocktailControllerTest {
     private final String REQUEST_BUILDER_URI = "/api/cocktails/favourites";
     @Autowired
     FavouriteCocktailService favouriteCocktailService;
+
+    @Autowired
+    private MockMvc mockMvc;
+
     CocktailDTO mojitoDTO;
     CocktailEntity mojitoEntity;
     CocktailDTO margaritaDTO;
     CocktailEntity margaritaEntity;
-    @Autowired
-    private MockMvc mockMvc;
 
     @BeforeEach
     void setup() {
@@ -107,5 +112,29 @@ public class FavouriteCocktailControllerTest {
                 createdCocktail.getIdDrink(),
                 "User ID is null."
         );
+
+    }
+        @Test
+        @DisplayName("FavouriteCocktails can be found when existing.")
+        void testGetAllFavouriteCocktails_whenValidCocktailDetailsExist_returnsCreatedCocktailDetails() throws Exception {
+//        Arrange
+            List<CocktailDTO> savedCocktails = new ArrayList<>();
+            savedCocktails.add(mojitoDTO);
+            savedCocktails.add(margaritaDTO);
+
+            when(favouriteCocktailService.findAllFavouriteCocktails()).thenReturn(savedCocktails);
+
+            RequestBuilder requestBuilder = MockMvcRequestBuilders.get(REQUEST_BUILDER_URI)
+                    .accept(MediaType.APPLICATION_JSON);
+
+//        Act
+
+//        Assert
+        }
+
+    @Test
+    @DisplayName("FavouriteCocktails can be found when existing.")
+    void testGetAllFavouriteCocktails_whenValidCocktailDetailsDoNotExist_returnsNotFound() throws Exception {
+
     }
 }
