@@ -1,6 +1,7 @@
 package com.example.cocktailcompass.cocktail.services;
 
 
+import com.example.cocktailcompass.cocktail.exceptions.cocktail.CocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailListResponseDTO;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
@@ -58,16 +59,20 @@ class CocktailServiceTest {
     }
 
     @Test
-    @DisplayName("searchCocktailsByName() returns an empty list of cocktails when API returns a response.")
-    void testSearchCocktailsByName_whenApiReturnsEmptyResponse_returnEmptyCocktailList() {
+    @DisplayName("searchCocktailsByName() throws an exception when API returns no cocktail")
+    void testSearchCocktailsByName_whenApiReturnsEmptyResponse_throwsException() {
         // Arrange
         when(restTemplate.getForObject(BASE_URL + "search.php?s=" + "lola_sour", CocktailListResponseDTO.class)).thenReturn(emptyCocktailListResponseDTO);
 
-        // Act
-        List<CocktailDTO> cocktails = cocktailService.searchCocktailsByName("lola_sour");
+        // Act and Assert
+        Exception exception = assertThrows(CocktailNotFoundException.class, () -> {
+            cocktailService.searchCocktailsByName("lola_sour");
+        });
 
-        // Assert
-        assertTrue(cocktails.isEmpty(), "Response should be an empty list");
+        String expectedMessage = "No cocktails found";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
@@ -87,16 +92,20 @@ class CocktailServiceTest {
     }
 
     @Test
-    @DisplayName("searchCocktailsByName() returns a list of cocktails when API returns a response.")
+    @DisplayName("searchCocktailsByIngredient() throws an exception when API returns no cocktail")
     void testSearchCocktailsByIngredient_whenApiReturnsEmptyResponse_returnEmptyCocktailList() {
         // Arrange
         when(restTemplate.getForObject(BASE_URL + "filter.php?i=" + "pixie_dust", CocktailListResponseDTO.class)).thenReturn(emptyCocktailListResponseDTO);
 
-        // Act
-        List<CocktailDTO> cocktails = cocktailService.searchCocktailsByIngredient("pixie_dust");
+        // Act and Assert
+        Exception exception = assertThrows(CocktailNotFoundException.class, () -> {
+            cocktailService.searchCocktailsByIngredient("pixie_dust");
+        });
 
-        // Assert
-        assertTrue(cocktails.isEmpty(), "Response should be an empty list");
+        String expectedMessage = "No cocktails found";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
