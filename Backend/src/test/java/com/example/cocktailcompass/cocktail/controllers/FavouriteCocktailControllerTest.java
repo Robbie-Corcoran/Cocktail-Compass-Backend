@@ -26,6 +26,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = FavouriteCocktailController.class)
@@ -171,8 +173,45 @@ public class FavouriteCocktailControllerTest {
     @Test
     @DisplayName("FavouriteCocktails returns 404 when not existing.")
     void testGetAllFavouriteCocktails_whenValidCocktailDetailsDoNotExist_returnsNotFound() throws Exception {
+//        Arrange
+        List<CocktailDTO> savedCocktails = new ArrayList<>();
+        int savedCocktailsListSize = 0;
 
+        when(favouriteCocktailService.findAllFavouriteCocktails()).thenReturn(savedCocktails);
+
+//        Act
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(REQUEST_BUILDER_URI);
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+
+        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {};
+        List<CocktailDTO> resultCocktails = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), typeRef);
+
+//        Assert
+        assertEquals(
+                HttpStatus.NOT_FOUND.value(),
+                mvcResult.getResponse().getStatus(),
+                "Incorrect Response Status"
+        );
+
+        assertEquals(
+                savedCocktailsListSize,
+                resultCocktails.size(),
+                "Incorrect list size");
     }
 
+    @Test
+    public void testDeleteFavouriteCocktail_whenValidCocktailIdProvided_returnsOK() throws Exception {
+//        Arrange
+        doNothing().when(favouriteCocktailService).deleteFavouriteCocktail(mojitoDTO.getIdDrink());
 
+//        Act
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .delete("/api/cocktails/favourites/11000")
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+
+        assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus(), "Incorrect Response Status");
+    }
 }
