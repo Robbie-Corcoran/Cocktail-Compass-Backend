@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler({FavouriteCocktailAlreadyExistsException.class})
-    public ResponseEntity<Object> handleFavouriteCocktailAlreadyExistsException (FavouriteCocktailAlreadyExistsException exception){
+    public ResponseEntity<Object> handleFavouriteCocktailAlreadyExistsException(FavouriteCocktailAlreadyExistsException exception) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(exception.getMessage());
     }
 
     @ExceptionHandler({FavouriteCocktailNotFoundException.class})
-    public ResponseEntity<Object> handleFavouriteCocktailNotFoundException (FavouriteCocktailNotFoundException exception){
+    public ResponseEntity<Object> handleFavouriteCocktailNotFoundException(FavouriteCocktailNotFoundException exception) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(exception.getMessage());
