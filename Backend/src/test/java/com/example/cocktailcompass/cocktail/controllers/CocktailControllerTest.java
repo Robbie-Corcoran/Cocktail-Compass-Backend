@@ -130,7 +130,7 @@ public class CocktailControllerTest {
         when(cocktailService.searchCocktailsByName("Invalid")).thenReturn(new ArrayList<>());
 
 //        Act
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/cocktails/Invalid")).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(REQUEST_BUILDER_URI + "Invalid")).andReturn();
 
 //        Assert
         assertEquals(
@@ -139,5 +139,41 @@ public class CocktailControllerTest {
                 "Incorrect Response Status"
         );
     }
+
+    @Test
+    @DisplayName("Rum can be found when searching.")
+    public void testSearchCocktailsByIngredient_whenValidSearchQuery_returnsOk() throws Exception {
+//        Arrange
+        List<CocktailDTO> cocktails = new ArrayList<>();
+        cocktails.add(mojitoDTO);
+
+        when(cocktailService.searchCocktailsByIngredient("Rum")).thenReturn(cocktails);
+
+//        Act
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(REQUEST_BUILDER_URI + "ingredients/Rum")).andReturn();
+        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {};
+
+        List<CocktailDTO> resultCocktails = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), typeRef);
+
+//        Assert
+        assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus(), "Incorrect Response Status");
+        assertEquals(1, resultCocktails.size(), "Incorrect list size");
+        assertEquals(11000, resultCocktails.get(0).getIdDrink(), "Incorrect idDrink");
+        assertEquals("Mojito", resultCocktails.get(0).getStrDrink(), "Incorrect strDrink");
+    }
+
+    @Test
+    @DisplayName("404 response when searching invalid ingredient.")
+    public void testSearchCocktailsByIngredient_whenInvalidSearchQuery_returnsNotFound() throws Exception {
+//        Arrange
+        when(cocktailService.searchCocktailsByIngredient("Invalid")).thenReturn(new ArrayList<>());
+
+//        Act
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(REQUEST_BUILDER_URI + "ingredients/Invalid")).andReturn();
+
+//        Assert
+        assertEquals(HttpStatus.NOT_FOUND.value(), mvcResult.getResponse().getStatus(), "Incorrect Response Status");
+    }
+
 }
 
