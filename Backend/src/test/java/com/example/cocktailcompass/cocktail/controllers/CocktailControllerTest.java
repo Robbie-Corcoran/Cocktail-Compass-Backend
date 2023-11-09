@@ -161,5 +161,18 @@ public class CocktailControllerTest {
         assertEquals(11000, resultCocktails.get(0).getIdDrink(), "Incorrect idDrink");
         assertEquals("Mojito", resultCocktails.get(0).getStrDrink(), "Incorrect strDrink");
     }
+
+    @Test
+    @DisplayName("404 response when searching invalid ingredient.")
+    public void testSearchCocktailsByIngredient_whenInvalidSearchQuery_returnsNotFound() throws Exception {
+//        Arrange
+        when(cocktailService.searchCocktailsByIngredient("Invalid")).thenReturn(new ArrayList<>());
+
+//        Act
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(REQUEST_BUILDER_URI + "ingredients/Invalid")).andReturn();
+
+//        Assert
+        assertEquals(HttpStatus.NOT_FOUND.value(), mvcResult.getResponse().getStatus(), "Incorrect Response Status");
+    }
 }
 
