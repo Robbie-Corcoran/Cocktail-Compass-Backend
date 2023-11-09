@@ -21,4 +21,12 @@ public class GlobalExceptionHandlerTest {
         assertEquals(exception.getMessage(), result.getBody());
     }
 
+    @Test
+    public void testHandleFavouriteCocktailNotFoundException() {
+        FavouriteCocktailNotFoundException exception = new FavouriteCocktailNotFoundException("Cocktail not found");
+        ResponseEntity<Object> result = handler.handleFavouriteCocktailNotFoundException(exception);
+
+        assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+        assertEquals(exception.getMessage(), result.getBody());
+    }
 }
