@@ -1,5 +1,6 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
+import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailService;
@@ -23,12 +24,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @WebMvcTest(controllers = FavouriteCocktailController.class)
 @MockBean({FavouriteCocktailServiceImpl.class})
@@ -175,7 +174,6 @@ public class FavouriteCocktailControllerTest {
     void testGetAllFavouriteCocktails_whenValidCocktailDetailsDoNotExist_returnsNotFound() throws Exception {
 //        Arrange
         List<CocktailDTO> savedCocktails = new ArrayList<>();
-        int savedCocktailsListSize = 0;
 
         when(favouriteCocktailService.findAllFavouriteCocktails()).thenReturn(savedCocktails);
 
@@ -183,9 +181,7 @@ public class FavouriteCocktailControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(REQUEST_BUILDER_URI);
 
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-
-        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {};
-        List<CocktailDTO> resultCocktails = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), typeRef);
+        String resultCocktails = mvcResult.getResponse().getContentAsString();
 
 //        Assert
         assertEquals(
@@ -194,9 +190,8 @@ public class FavouriteCocktailControllerTest {
                 "Incorrect Response Status"
         );
 
-        assertEquals(
-                savedCocktailsListSize,
-                resultCocktails.size(),
+        assertTrue(
+                resultCocktails.isEmpty(),
                 "Incorrect list size");
     }
 
@@ -212,6 +207,10 @@ public class FavouriteCocktailControllerTest {
 
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
 
-        assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus(), "Incorrect Response Status");
+        assertEquals(
+                HttpStatus.OK.value(),
+                mvcResult.getResponse().getStatus(),
+                "Incorrect Response Status"
+        );
     }
 }
