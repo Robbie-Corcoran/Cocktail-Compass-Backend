@@ -158,7 +158,7 @@ public class FavouriteCocktailControllerTest {
 
             assertEquals(
                     margaritaDTO.getIdDrink(),
-                    resultCocktails.get(0).getIdDrink(),
+                    resultCocktails.get(1).getIdDrink(),
                     "Incorrect idDrink"
             );
 
