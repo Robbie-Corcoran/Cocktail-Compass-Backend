@@ -1,7 +1,8 @@
 package com.example.cocktailcompass.cocktail.sevices;
 
-import com.example.cocktailcompass.cocktail.models.CocktailListResponse;
+import com.example.cocktailcompass.cocktail.exceptions.cocktail.CocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
+import com.example.cocktailcompass.cocktail.models.dtos.CocktailListResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("cocktailService")
 public class CocktailService {
 
     private final RestTemplate restTemplate;
@@ -39,9 +40,15 @@ public class CocktailService {
     }
 
     private List<CocktailDTO> fetchCocktailList(String apiUrl) {
-        CocktailListResponse cocktailListResponse = restTemplate.getForObject(apiUrl, CocktailListResponse.class);
-        return Optional.ofNullable(cocktailListResponse)
-                .map(CocktailListResponse::getCocktails)
+        CocktailListResponseDTO cocktailListResponseDTO = restTemplate.getForObject(apiUrl, CocktailListResponseDTO.class);
+        List<CocktailDTO> cocktails = Optional.ofNullable(cocktailListResponseDTO)
+                .map(CocktailListResponseDTO::getCocktails)
                 .orElse(Collections.emptyList());
+
+        if (cocktails.isEmpty()) {
+            throw new CocktailNotFoundException("No cocktails found.");
+        }
+
+        return cocktails;
     }
 }

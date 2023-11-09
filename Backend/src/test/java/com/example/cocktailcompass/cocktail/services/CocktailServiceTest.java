@@ -1,8 +1,9 @@
 package com.example.cocktailcompass.cocktail.services;
 
 
-import com.example.cocktailcompass.cocktail.models.CocktailListResponse;
+import com.example.cocktailcompass.cocktail.exceptions.cocktail.CocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
+import com.example.cocktailcompass.cocktail.models.dtos.CocktailListResponseDTO;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,8 +25,8 @@ class CocktailServiceTest {
 
     private final String BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/";
     CocktailDTO mojitoDTO;
-    CocktailListResponse cocktailListResponse;
-    CocktailListResponse emptyCocktailListResponse;
+    CocktailListResponseDTO cocktailListResponseDTO;
+    CocktailListResponseDTO emptyCocktailListResponseDTO;
     @Mock
     private RestTemplate restTemplate;
     @InjectMocks
@@ -37,18 +38,18 @@ class CocktailServiceTest {
         mojitoDTO.setIdDrink(11000);
         mojitoDTO.setStrDrink("Mojito");
 
-        cocktailListResponse = new CocktailListResponse();
-        cocktailListResponse.setCocktails(Collections.singletonList(mojitoDTO));
+        cocktailListResponseDTO = new CocktailListResponseDTO();
+        cocktailListResponseDTO.setCocktails(Collections.singletonList(mojitoDTO));
 
-        emptyCocktailListResponse = new CocktailListResponse();
-        emptyCocktailListResponse.setCocktails(Collections.emptyList());
+        emptyCocktailListResponseDTO = new CocktailListResponseDTO();
+        emptyCocktailListResponseDTO.setCocktails(Collections.emptyList());
     }
 
     @Test
     @DisplayName("searchCocktailsByName() returns a list of cocktails when API returns a response.")
     void testSearchCocktailsByName_whenApiReturnsResponse_returnCocktailList() {
         // Arrange
-        when(restTemplate.getForObject(BASE_URL + "search.php?s=" + "mojito", CocktailListResponse.class)).thenReturn(cocktailListResponse);
+        when(restTemplate.getForObject(BASE_URL + "search.php?s=" + "mojito", CocktailListResponseDTO.class)).thenReturn(cocktailListResponseDTO);
 
         // Act
         List<CocktailDTO> cocktails = cocktailService.searchCocktailsByName("mojito");
@@ -58,26 +59,28 @@ class CocktailServiceTest {
     }
 
     @Test
-    @DisplayName("searchCocktailsByName() returns an empty list of cocktails when API returns a response.")
-    void testSearchCocktailsByName_whenApiReturnsEmptyResponse_returnEmptyCocktailList() {
+    @DisplayName("searchCocktailsByName() throws an exception when API returns no cocktail")
+    void testSearchCocktailsByName_whenApiReturnsEmptyResponse_throwsException() {
         // Arrange
-        when(restTemplate.getForObject(BASE_URL + "search.php?s=" + "lola_sour", CocktailListResponse.class)).thenReturn(emptyCocktailListResponse);
+        when(restTemplate.getForObject(BASE_URL + "search.php?s=" + "lola_sour", CocktailListResponseDTO.class)).thenReturn(emptyCocktailListResponseDTO);
 
-        // Act
-        List<CocktailDTO> cocktails = cocktailService.searchCocktailsByName("lola_sour");
+        // Act and Assert
+        Exception exception = assertThrows(CocktailNotFoundException.class, () -> cocktailService.searchCocktailsByName("lola_sour"));
 
-        // Assert
-        assertTrue(cocktails.isEmpty(), "Response should be an empty list");
+        String expectedMessage = "No cocktails found";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
     @DisplayName("searchCocktailsByIngredient() returns a list of cocktails when API returns a response.")
     void testSearchCocktailsByIngredient_whenApiReturnsResponse_returnCocktailList() {
 //        Arrange
-        CocktailListResponse cocktailListResponse = new CocktailListResponse();
-        cocktailListResponse.setCocktails(Collections.singletonList(mojitoDTO));
+        CocktailListResponseDTO cocktailListResponseDTO = new CocktailListResponseDTO();
+        cocktailListResponseDTO.setCocktails(Collections.singletonList(mojitoDTO));
 
-        when(restTemplate.getForObject(BASE_URL + "filter.php?i=" + "dark_rum", CocktailListResponse.class)).thenReturn(cocktailListResponse);
+        when(restTemplate.getForObject(BASE_URL + "filter.php?i=" + "dark_rum", CocktailListResponseDTO.class)).thenReturn(cocktailListResponseDTO);
 
 //        Act
         List<CocktailDTO> cocktails = cocktailService.searchCocktailsByIngredient("dark_rum");
@@ -87,26 +90,28 @@ class CocktailServiceTest {
     }
 
     @Test
-    @DisplayName("searchCocktailsByName() returns a list of cocktails when API returns a response.")
+    @DisplayName("searchCocktailsByIngredient() throws an exception when API returns no cocktail")
     void testSearchCocktailsByIngredient_whenApiReturnsEmptyResponse_returnEmptyCocktailList() {
         // Arrange
-        when(restTemplate.getForObject(BASE_URL + "filter.php?i=" + "pixie_dust", CocktailListResponse.class)).thenReturn(emptyCocktailListResponse);
+        when(restTemplate.getForObject(BASE_URL + "filter.php?i=" + "pixie_dust", CocktailListResponseDTO.class)).thenReturn(emptyCocktailListResponseDTO);
 
-        // Act
-        List<CocktailDTO> cocktails = cocktailService.searchCocktailsByIngredient("pixie_dust");
+        // Act and Assert
+        Exception exception = assertThrows(CocktailNotFoundException.class, () -> cocktailService.searchCocktailsByIngredient("pixie_dust"));
 
-        // Assert
-        assertTrue(cocktails.isEmpty(), "Response should be an empty list");
+        String expectedMessage = "No cocktails found";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
     @DisplayName("randomCocktail() returns a list of cocktails when API returns a response.")
     void testRandomCocktail_whenApiReturnsResponse_returnCocktailList() {
 //        Arrange
-        CocktailListResponse cocktailListResponse = new CocktailListResponse();
-        cocktailListResponse.setCocktails(Collections.singletonList(mojitoDTO));
+        CocktailListResponseDTO cocktailListResponseDTO = new CocktailListResponseDTO();
+        cocktailListResponseDTO.setCocktails(Collections.singletonList(mojitoDTO));
 
-        when(restTemplate.getForObject(BASE_URL + "random.php", CocktailListResponse.class)).thenReturn(cocktailListResponse);
+        when(restTemplate.getForObject(BASE_URL + "random.php", CocktailListResponseDTO.class)).thenReturn(cocktailListResponseDTO);
 
 //        Act
         List<CocktailDTO> cocktails = cocktailService.randomCocktail();
