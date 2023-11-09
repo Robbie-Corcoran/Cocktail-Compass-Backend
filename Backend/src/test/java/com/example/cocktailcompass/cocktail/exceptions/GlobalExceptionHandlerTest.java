@@ -38,4 +38,13 @@ public class GlobalExceptionHandlerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.getStatusCode());
         assertEquals(exception.getMessage(), result.getBody());
     }
+
+    @Test
+    public void testHandleCocktailNotFoundException() {
+        CocktailNotFoundException exception = new CocktailNotFoundException("Cocktail not found");
+        ResponseEntity<String> result = handler.handleCocktailNotFoundException(exception);
+
+        assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+        assertEquals(exception.getMessage(), result.getBody());
+    }
 }
