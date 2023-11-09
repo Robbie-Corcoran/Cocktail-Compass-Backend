@@ -4,6 +4,7 @@ import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailService;
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailServiceImpl;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -128,20 +129,50 @@ public class FavouriteCocktailControllerTest {
             List<CocktailDTO> savedCocktails = new ArrayList<>();
             savedCocktails.add(mojitoDTO);
             savedCocktails.add(margaritaDTO);
+            int savedCocktailsListSize = savedCocktails.size();
 
             when(favouriteCocktailService.findAllFavouriteCocktails()).thenReturn(savedCocktails);
-
 
 //        Act
             RequestBuilder requestBuilder = MockMvcRequestBuilders.get(REQUEST_BUILDER_URI)
                     .accept(MediaType.APPLICATION_JSON);
 
+            MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+
+            TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {};
+            List<CocktailDTO> resultCocktails = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), typeRef);
+
 //        Assert
+            assertEquals(
+                    HttpStatus.OK.value(),
+                    mvcResult.getResponse().getStatus(),
+                    "Incorrect Response Status"
+            );
+
+            assertEquals(
+                    savedCocktailsListSize,
+                    resultCocktails.size(),
+                    "Incorrect list size");
+
+
+            assertEquals(
+                    margaritaDTO.getIdDrink(),
+                    resultCocktails.get(0).getIdDrink(),
+                    "Incorrect idDrink"
+            );
+
+            assertEquals(
+                    mojitoDTO.getStrDrink(),
+                    resultCocktails.get(0).getStrDrink(),
+                    "Incorrect strDrink"
+            );
         }
 
     @Test
-    @DisplayName("FavouriteCocktails can be found when existing.")
+    @DisplayName("FavouriteCocktails returns 404 when not existing.")
     void testGetAllFavouriteCocktails_whenValidCocktailDetailsDoNotExist_returnsNotFound() throws Exception {
 
     }
+
+
 }
