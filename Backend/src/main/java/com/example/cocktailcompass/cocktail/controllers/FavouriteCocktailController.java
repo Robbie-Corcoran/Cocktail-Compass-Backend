@@ -22,7 +22,7 @@ public class FavouriteCocktailController {
 
     @PostMapping
     public ResponseEntity<CocktailDTO> saveFavouriteCocktail(@RequestBody CocktailDTO favouriteCocktail){
-        return new ResponseEntity<>(favouriteCocktailService.saveFavouriteCocktail(favouriteCocktail), HttpStatus.OK);
+        return ResponseEntity.ok(favouriteCocktailService.saveFavouriteCocktail(favouriteCocktail));
     }
 
     @GetMapping
@@ -32,12 +32,12 @@ public class FavouriteCocktailController {
         if (favouriteCocktails.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return new ResponseEntity<>(favouriteCocktails, HttpStatus.OK);
+        return ResponseEntity.ok(favouriteCocktails);
     }
 
     @DeleteMapping("/{idDrink}")
     public ResponseEntity<String> deleteFavouriteCocktail(@PathVariable int idDrink) {
         favouriteCocktailService.deleteFavouriteCocktail(idDrink);
-        return new ResponseEntity<>("Favourite successfully deleted", HttpStatus.OK);
+        return ResponseEntity.ok("Favourite successfully deleted");
     }
 }
