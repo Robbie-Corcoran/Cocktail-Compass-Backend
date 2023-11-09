@@ -1,8 +1,8 @@
 package com.example.cocktailcompass.cocktail.sevices;
 
 import com.example.cocktailcompass.cocktail.exceptions.cocktail.CocktailNotFoundException;
-import com.example.cocktailcompass.cocktail.models.dtos.CocktailListResponseDTO;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
+import com.example.cocktailcompass.cocktail.models.dtos.CocktailListResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

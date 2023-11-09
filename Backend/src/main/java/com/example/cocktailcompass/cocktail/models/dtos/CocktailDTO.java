@@ -1,7 +1,9 @@
 package com.example.cocktailcompass.cocktail.models.dtos;
 
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
