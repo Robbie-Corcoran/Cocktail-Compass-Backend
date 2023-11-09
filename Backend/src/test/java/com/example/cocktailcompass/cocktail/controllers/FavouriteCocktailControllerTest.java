@@ -1,6 +1,5 @@
 package com.example.cocktailcompass.cocktail.controllers;
 
-import com.example.cocktailcompass.cocktail.exceptions.FavouriteCocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.models.CocktailEntity;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.sevices.FavouriteCocktailService;
@@ -26,8 +25,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = FavouriteCocktailController.class)
 @MockBean({FavouriteCocktailServiceImpl.class})
@@ -36,14 +35,12 @@ public class FavouriteCocktailControllerTest {
     private final String REQUEST_BUILDER_URI = "/api/cocktails/favourites";
     @Autowired
     FavouriteCocktailService favouriteCocktailService;
-
-    @Autowired
-    private MockMvc mockMvc;
-
     CocktailDTO mojitoDTO;
     CocktailEntity mojitoEntity;
     CocktailDTO margaritaDTO;
     CocktailEntity margaritaEntity;
+    @Autowired
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setup() {
@@ -123,51 +120,53 @@ public class FavouriteCocktailControllerTest {
         );
 
     }
-        @Test
-        @DisplayName("FavouriteCocktails can be found when existing.")
-        void testGetAllFavouriteCocktails_whenValidCocktailDetailsExist_returnsCreatedCocktailDetails() throws Exception {
-//        Arrange
-            List<CocktailDTO> savedCocktails = new ArrayList<>();
-            savedCocktails.add(mojitoDTO);
-            savedCocktails.add(margaritaDTO);
-            int savedCocktailsListSize = savedCocktails.size();
 
-            when(favouriteCocktailService.findAllFavouriteCocktails()).thenReturn(savedCocktails);
+    @Test
+    @DisplayName("FavouriteCocktails can be found when existing.")
+    void testGetAllFavouriteCocktails_whenValidCocktailDetailsExist_returnsCreatedCocktailDetails() throws Exception {
+//        Arrange
+        List<CocktailDTO> savedCocktails = new ArrayList<>();
+        savedCocktails.add(mojitoDTO);
+        savedCocktails.add(margaritaDTO);
+        int savedCocktailsListSize = savedCocktails.size();
+
+        when(favouriteCocktailService.findAllFavouriteCocktails()).thenReturn(savedCocktails);
 
 //        Act
-            RequestBuilder requestBuilder = MockMvcRequestBuilders.get(REQUEST_BUILDER_URI)
-                    .accept(MediaType.APPLICATION_JSON);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(REQUEST_BUILDER_URI)
+                .accept(MediaType.APPLICATION_JSON);
 
-            MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
 
-            TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {};
-            List<CocktailDTO> resultCocktails = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), typeRef);
+        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {
+        };
+        List<CocktailDTO> resultCocktails = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), typeRef);
 
 //        Assert
-            assertEquals(
-                    HttpStatus.OK.value(),
-                    mvcResult.getResponse().getStatus(),
-                    "Incorrect Response Status"
-            );
+        assertEquals(
+                HttpStatus.OK.value(),
+                mvcResult.getResponse().getStatus(),
+                "Incorrect Response Status"
+        );
 
-            assertEquals(
-                    savedCocktailsListSize,
-                    resultCocktails.size(),
-                    "Incorrect list size");
+        assertEquals(
+                savedCocktailsListSize,
+                resultCocktails.size(),
+                "Incorrect list size");
 
 
-            assertEquals(
-                    margaritaDTO.getIdDrink(),
-                    resultCocktails.get(1).getIdDrink(),
-                    "Incorrect idDrink"
-            );
+        assertEquals(
+                margaritaDTO.getIdDrink(),
+                resultCocktails.get(1).getIdDrink(),
+                "Incorrect idDrink"
+        );
 
-            assertEquals(
-                    mojitoDTO.getStrDrink(),
-                    resultCocktails.get(0).getStrDrink(),
-                    "Incorrect strDrink"
-            );
-        }
+        assertEquals(
+                mojitoDTO.getStrDrink(),
+                resultCocktails.get(0).getStrDrink(),
+                "Incorrect strDrink"
+        );
+    }
 
     @Test
     @DisplayName("FavouriteCocktails returns 404 when not existing.")
