@@ -65,9 +65,7 @@ class CocktailServiceTest {
         when(restTemplate.getForObject(BASE_URL + "search.php?s=" + "lola_sour", CocktailListResponseDTO.class)).thenReturn(emptyCocktailListResponseDTO);
 
         // Act and Assert
-        Exception exception = assertThrows(CocktailNotFoundException.class, () -> {
-            cocktailService.searchCocktailsByName("lola_sour");
-        });
+        Exception exception = assertThrows(CocktailNotFoundException.class, () -> cocktailService.searchCocktailsByName("lola_sour"));
 
         String expectedMessage = "No cocktails found";
         String actualMessage = exception.getMessage();
@@ -98,9 +96,7 @@ class CocktailServiceTest {
         when(restTemplate.getForObject(BASE_URL + "filter.php?i=" + "pixie_dust", CocktailListResponseDTO.class)).thenReturn(emptyCocktailListResponseDTO);
 
         // Act and Assert
-        Exception exception = assertThrows(CocktailNotFoundException.class, () -> {
-            cocktailService.searchCocktailsByIngredient("pixie_dust");
-        });
+        Exception exception = assertThrows(CocktailNotFoundException.class, () -> cocktailService.searchCocktailsByIngredient("pixie_dust"));
 
         String expectedMessage = "No cocktails found";
         String actualMessage = exception.getMessage();
