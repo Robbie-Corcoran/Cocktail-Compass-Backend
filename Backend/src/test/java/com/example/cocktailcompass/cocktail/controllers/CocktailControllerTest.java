@@ -5,7 +5,6 @@ import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import com.example.cocktailcompass.cocktail.sevices.CocktailService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
@@ -35,15 +32,12 @@ public class CocktailControllerTest {
 
     @Autowired
     CocktailService cocktailService;
-
-    @Autowired
-    private MockMvc mockMvc;
-
     CocktailDTO mojitoDTO;
     CocktailEntity mojitoEntity;
     CocktailDTO margaritaDTO;
     CocktailEntity margaritaEntity;
-
+    @Autowired
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setup() {
@@ -91,7 +85,8 @@ public class CocktailControllerTest {
 
         when(cocktailService.searchCocktailsByName("Mojito")).thenReturn(cocktails);
 
-        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {};
+        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {
+        };
 
 //        Act
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(REQUEST_BUILDER_URI + "Mojito")).andReturn();
@@ -152,7 +147,8 @@ public class CocktailControllerTest {
 
 //        Act
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(REQUEST_BUILDER_URI + "ingredients/Rum")).andReturn();
-        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {};
+        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {
+        };
 
         List<CocktailDTO> resultCocktails = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), typeRef);
 
@@ -188,7 +184,8 @@ public class CocktailControllerTest {
 
 //        Act
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(REQUEST_BUILDER_URI + "random")).andReturn();
-        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {};
+        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {
+        };
         List<CocktailDTO> resultCocktail = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), typeRef);
 
 //        Assert
