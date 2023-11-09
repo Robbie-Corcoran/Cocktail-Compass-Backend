@@ -122,5 +122,22 @@ public class CocktailControllerTest {
                 "Incorrect strDrink"
         );
     }
+
+    @Test
+    @DisplayName("404 response when searching invalid name.")
+    public void testSearchCocktails_whenInvalidSearchQuery_returnsNotFound() throws Exception {
+//        Arrange
+        when(cocktailService.searchCocktailsByName("Invalid")).thenReturn(new ArrayList<>());
+
+//        Act
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/cocktails/Invalid")).andReturn();
+
+//        Assert
+        assertEquals(
+                HttpStatus.NOT_FOUND.value(),
+                mvcResult.getResponse().getStatus(),
+                "Incorrect Response Status"
+        );
+    }
 }
 
