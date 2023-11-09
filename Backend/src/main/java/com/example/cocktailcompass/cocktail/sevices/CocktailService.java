@@ -1,6 +1,6 @@
 package com.example.cocktailcompass.cocktail.sevices;
 
-import com.example.cocktailcompass.cocktail.models.CocktailListResponse;
+import com.example.cocktailcompass.cocktail.models.dtos.CocktailListResponseDTO;
 import com.example.cocktailcompass.cocktail.models.dtos.CocktailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,9 +39,9 @@ public class CocktailService {
     }
 
     private List<CocktailDTO> fetchCocktailList(String apiUrl) {
-        CocktailListResponse cocktailListResponse = restTemplate.getForObject(apiUrl, CocktailListResponse.class);
-        return Optional.ofNullable(cocktailListResponse)
-                .map(CocktailListResponse::getCocktails)
+        CocktailListResponseDTO cocktailListResponseDTO = restTemplate.getForObject(apiUrl, CocktailListResponseDTO.class);
+        return Optional.ofNullable(cocktailListResponseDTO)
+                .map(CocktailListResponseDTO::getCocktails)
                 .orElse(Collections.emptyList());
     }
 }
