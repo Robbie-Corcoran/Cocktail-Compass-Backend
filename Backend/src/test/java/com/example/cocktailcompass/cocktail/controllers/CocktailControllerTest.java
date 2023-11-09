@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = CocktailController.class)
@@ -196,5 +197,21 @@ public class CocktailControllerTest {
         assertEquals(11000, resultCocktail.get(0).getIdDrink(), "Incorrect idDrink");
         assertEquals("Mojito", resultCocktail.get(0).getStrDrink(), "Incorrect strDrink");
     }
+
+    @Test
+    @DisplayName("204 response when random cocktail cant be found.")
+    public void testRandomCocktail_whenNoCocktailAvailable_returnsNoContent() throws Exception {
+//        Arrange
+        when(cocktailService.randomCocktail()).thenReturn(null);
+
+//        Act
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/cocktails/random")).andReturn();
+        String content = mvcResult.getResponse().getContentAsString();
+
+//        Assert
+        assertEquals(HttpStatus.NO_CONTENT.value(), mvcResult.getResponse().getStatus(), "Incorrect Response Status");
+        assertTrue(content.isEmpty(), "Response body should be empty");
+    }
+
 }
 
