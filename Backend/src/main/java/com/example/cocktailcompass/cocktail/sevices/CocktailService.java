@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("cocktailService")
 public class CocktailService {
 
     private final RestTemplate restTemplate;
