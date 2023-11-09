@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -97,6 +98,12 @@ public class FavouriteCocktailControllerTest {
 
 //        Assert
         assertEquals(
+                HttpStatus.OK.value(),
+                mvcResult.getResponse().getStatus(),
+                "Incorrect Response Status"
+        );
+
+        assertEquals(
                 mojitoDTO.getStrDrink(),
                 createdCocktail.getStrDrink(),
                 "The returned cocktail's name is incorrect."
@@ -124,10 +131,10 @@ public class FavouriteCocktailControllerTest {
 
             when(favouriteCocktailService.findAllFavouriteCocktails()).thenReturn(savedCocktails);
 
-            RequestBuilder requestBuilder = MockMvcRequestBuilders.get(REQUEST_BUILDER_URI)
-                    .accept(MediaType.APPLICATION_JSON);
 
 //        Act
+            RequestBuilder requestBuilder = MockMvcRequestBuilders.get(REQUEST_BUILDER_URI)
+                    .accept(MediaType.APPLICATION_JSON);
 
 //        Assert
         }
