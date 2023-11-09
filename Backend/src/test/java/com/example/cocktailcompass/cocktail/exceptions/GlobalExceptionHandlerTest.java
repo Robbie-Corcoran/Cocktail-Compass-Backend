@@ -29,4 +29,13 @@ public class GlobalExceptionHandlerTest {
         assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
         assertEquals(exception.getMessage(), result.getBody());
     }
+
+    @Test
+    public void testHandleRuntimeException() {
+        RuntimeException exception = new RuntimeException("Internal server error");
+        ResponseEntity<Object> result = handler.handleRuntimeException(exception);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.getStatusCode());
+        assertEquals(exception.getMessage(), result.getBody());
+    }
 }
