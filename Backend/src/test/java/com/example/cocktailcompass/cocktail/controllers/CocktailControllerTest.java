@@ -174,5 +174,27 @@ public class CocktailControllerTest {
 //        Assert
         assertEquals(HttpStatus.NOT_FOUND.value(), mvcResult.getResponse().getStatus(), "Incorrect Response Status");
     }
+
+
+    @Test
+    @DisplayName("Random cocktail can be found.")
+    public void testRandomCocktail_whenCocktailAvailable_returnsOk() throws Exception {
+//        Arrange
+        List<CocktailDTO> cocktail = new ArrayList<>();
+        cocktail.add(mojitoDTO);
+
+        when(cocktailService.randomCocktail()).thenReturn(cocktail);
+
+//        Act
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(REQUEST_BUILDER_URI + "random")).andReturn();
+        TypeReference<List<CocktailDTO>> typeRef = new TypeReference<>() {};
+        List<CocktailDTO> resultCocktail = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), typeRef);
+
+//        Assert
+        assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus(), "Incorrect Response Status");
+        assertEquals(1, resultCocktail.size(), "Incorrect list size");
+        assertEquals(11000, resultCocktail.get(0).getIdDrink(), "Incorrect idDrink");
+        assertEquals("Mojito", resultCocktail.get(0).getStrDrink(), "Incorrect strDrink");
+    }
 }
 
