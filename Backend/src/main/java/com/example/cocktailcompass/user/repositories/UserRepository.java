@@ -1,4 +1,8 @@
 package com.example.cocktailcompass.user.repositories;
 
-public interface UserRepository {
+import com.example.cocktailcompass.user.models.UserEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+    UserEntity findByUsernameOrEmail (String username, String email);
 }
