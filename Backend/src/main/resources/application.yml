@@ -1,4 +1,4 @@
-## DB config goes here
+## DB config
 spring:
   output:
     ansi:
@@ -8,7 +8,7 @@ spring:
       platform: postgresql
       mode: always
   datasource:
-    url: jdbc:postgresql://localhost:5432/sqlbootcamp
+    url: jdbc:postgresql://localhost:5432/cocktail-compass
     username: pguserx
     password: pgpassword
     driverClassName: org.postgresql.Driver
@@ -16,6 +16,12 @@ spring:
     hibernate.ddl-auto: update
     defer-datasource-initialization: true
     show-sql: true
+    properties:
+      hibernate:
+        dialect=org:
+          hibernate:
+            dialect:
+              H2Dialect
 
 ## Logging settings
 debug: true
