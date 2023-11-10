@@ -1,6 +1,9 @@
 package com.example.cocktailcompass.user.controllers;
 
+import com.example.cocktailcompass.user.models.RoleEntity;
+import com.example.cocktailcompass.user.models.UserEntity;
 import com.example.cocktailcompass.user.models.dtos.UserLoginDTO;
+import com.example.cocktailcompass.user.models.dtos.UserSignUpDTO;
 import com.example.cocktailcompass.user.repositories.RoleRepository;
 import com.example.cocktailcompass.user.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +14,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/user")
@@ -40,5 +42,29 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return new ResponseEntity<>("User login successful.", HttpStatus.OK);
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@RequestBody UserSignUpDTO userSignUpDTO) {
+        if(userRepository.existsByUsername(userSignUpDTO.getUsername())) {
+            return new ResponseEntity<>("Username is already in use.", HttpStatus.CONFLICT);
+        }
+
+        if(userRepository.existsByEmail(userSignUpDTO.getEmail())){
+            return new ResponseEntity<>("Email is already in use.", HttpStatus.CONFLICT);
+        }
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setName(userSignUpDTO.getName());
+        userEntity.setUserName(userSignUpDTO.getUsername());
+        userEntity.setEmail(userSignUpDTO.getEmail());
+        userEntity.setPassword(passwordEncoder.encode(userSignUpDTO.getPassword()));
+
+        RoleEntity roles = roleRepository.findByName("ROLE_ADMIN").get();
+        userEntity.setRoles(Collections.singleton(roles));
+
+        userRepository.save(userEntity);
+
+        return new ResponseEntity<>("User registration successful", HttpStatus.OK);
     }
 }
