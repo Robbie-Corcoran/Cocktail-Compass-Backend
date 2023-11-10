@@ -1,4 +1,4 @@
-package com.example.cocktailcompass.cocktail.exceptions;
+package com.example.cocktailcompass;
 
 import com.example.cocktailcompass.cocktail.exceptions.cocktail.CocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.exceptions.favouriteCocktail.FavouriteCocktailAlreadyExistsException;

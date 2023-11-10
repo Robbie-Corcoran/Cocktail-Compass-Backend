@@ -1,5 +1,6 @@
 package com.example.cocktailcompass.cocktail.exceptions;
 
+import com.example.cocktailcompass.GlobalExceptionHandler;
 import com.example.cocktailcompass.cocktail.exceptions.cocktail.CocktailNotFoundException;
 import com.example.cocktailcompass.cocktail.exceptions.favouriteCocktail.FavouriteCocktailAlreadyExistsException;
 import com.example.cocktailcompass.cocktail.exceptions.favouriteCocktail.FavouriteCocktailNotFoundException;
