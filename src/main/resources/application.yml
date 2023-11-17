@@ -13,10 +13,12 @@ spring:
     password: pgpassword
     driverClassName: org.postgresql.Driver
   jpa:
-    hibernate.ddl-auto: update
-    defer-datasource-initialization: true
-    show-sql: true
-
+    hibernate:
+      ddl-auto: update
+      jdbc:
+        lob:
+          non_contextual_creation: true
+      dialect: org.hibernate.dialect.PostgreSQLDialect
 ## Logging settings
 debug: true
 logging:
@@ -25,3 +27,8 @@ logging:
       springframework:
         boot:
           autoconfigure: ERROR
+
+example:
+  app:
+      jwtSecret: ======================BezKoder=Spring===========================
+      jwtExpirationMs: 86400000
