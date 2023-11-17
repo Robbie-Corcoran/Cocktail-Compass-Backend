@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import java.security.Key;
 
+import java.security.Key;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ public class JwtUtils {
 
     @Value(value = "${example.app.jwtExpirationMs}")
     private int jwtExpirationMs;
-    
+
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()

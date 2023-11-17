@@ -8,12 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.modelmapper.Converters.Collection.map;
 
 @Getter
 @EqualsAndHashCode(of = "id")
@@ -21,14 +18,14 @@ public class UserDetailsImpl implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private String username;
-    private String email;
+    private final Long id;
+    private final String username;
+    private final String email;
 
     @JsonIgnore
-    private String password;
+    private final String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     @Builder
     public UserDetailsImpl(Long id,
@@ -45,8 +42,8 @@ public class UserDetailsImpl implements UserDetails {
 
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getUserRoles().stream()
-            .map(role -> new SimpleGrantedAuthority(role.getRoleName().name()))
-            .collect(Collectors.toList());
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName().name()))
+                .collect(Collectors.toList());
 
         return UserDetailsImpl.builder()
                 .id(user.getUserId())

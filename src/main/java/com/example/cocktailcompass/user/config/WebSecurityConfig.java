@@ -5,7 +5,6 @@ import com.example.cocktailcompass.user.config.jwt.AuthEntryPointJwt;
 import com.example.cocktailcompass.user.config.jwt.AuthTokenFilter;
 import com.example.cocktailcompass.user.config.services.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -57,15 +56,15 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable)
-            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(requests ->
-                    requests.requestMatchers("api/auth/**", "/api/test/**")
-                            .permitAll()
-                            .anyRequest()
-                            .authenticated()
-            );
+                .csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(requests ->
+                        requests.requestMatchers("api/auth/**", "/api/test/**")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated()
+                );
 
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
