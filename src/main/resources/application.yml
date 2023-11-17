@@ -15,9 +15,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      jdbc:
-        lob:
-          non_contextual_creation: true
+    defer-datasource-initialization: true
+    show-sql: true
+    properties:
+      hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 ## Logging settings
 debug: true
