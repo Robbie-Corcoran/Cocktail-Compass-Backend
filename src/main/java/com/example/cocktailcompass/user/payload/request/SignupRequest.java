@@ -1,4 +1,4 @@
-package com.example.cocktailcompass.user.models.payload.request;
+package com.example.cocktailcompass.user.payload.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

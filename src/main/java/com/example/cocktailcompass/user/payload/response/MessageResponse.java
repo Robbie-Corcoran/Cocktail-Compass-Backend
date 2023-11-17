@@ -1,4 +1,4 @@
-package com.example.cocktailcompass.user.models.payload.response;
+package com.example.cocktailcompass.user.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
